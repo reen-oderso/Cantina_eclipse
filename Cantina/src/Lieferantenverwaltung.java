@@ -1,4 +1,4 @@
-import java.util.Vector;
+import java.util.ArrayList;
 import java.io.*;
 
 /**
@@ -16,9 +16,9 @@ import java.io.*;
  * @version 0.01
  */
 public class Lieferantenverwaltung{ 
-    private Vector<Artikel> artikelVector;
-    private Vector<Lieferant> lieferantVector;
-    private Vector<Lebensmittel> lebensmittelVector;
+    private ArrayList<Artikel> artikelArrayList;
+    private ArrayList<Lieferant> lieferantArrayList;
+    private ArrayList<Lebensmittel> lebensmittelArrayList;
     
     /**
      *  Der Konstruktor der Lieferantenverwaltung
@@ -68,21 +68,77 @@ public class Lieferantenverwaltung{
     	File folder = new File(lieferantenOrdner);
     	//Debug-Print
     	System.out.println("Angegebener Lieferantenordner ist ein Ordner: "+folder.isDirectory());
+    	
+    	String[] fileList = folder.list();
+        if (folder.isDirectory())
+        {        	
+        	//Debug-Print
+        	System.out.println("Der Ordner "+lieferantenOrdner+" enthält folgende Dateien:");
+        	
+        	//Start der Datei-Schleife
+        	for ( int i = 0; i < fileList.length; i++ )
+        	{
+        		//Debug-Print
+        		System.out.println(fileList[i]);
+        		
+        		//Datei öffnen
+        		Datei inFile = new Datei(lieferantenOrdner+"//"+fileList[i]);
+        		inFile.openInFile_FS();
+                // Abfrage, ob das Oeffen funktioniert hat
+                if (!inFile.state())
+                {
+                    // Ausgabe des Fehlers im Terminalfenster
+                    System.out.println("Fehler beim öffnen der Eingabedatei "+lieferantenOrdner+"//"+fileList[i]);
+                    // Abbrechen der Methode
+                    return false;
+                }
+                //
+                while (!inFile.eof()){
+                	
+                	String zeile = inFile.readLine_FS();
+                	//Debug-Print
+                	//System.out.println(zeile);
+                	
+                	boolean feldStart = false;
+                	
+                	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
+                	if (!(zeile==null)){
+	                	for (int k = 0; k < zeile.length(); k++) {
+	                	    char ch = zeile.charAt(k);
+	                	    if (ch == '\"'){
+	                	        feldStart = !feldStart;
+	                	    } 
+	                	    else if ((ch == ',' && !feldStart)) {
+	                	    	//Debug-Print
+	                	    	//System.out.println(k);
+	                	    	//System.out.println(zeile.substring(0,k));
+	                	    	
+	                	    	
+	                	    } 
+	                	    else {
+	                	        
+	                	    }
+	                	}
+                	}
+                	
+                }
+        	}
+        }
         return true;
     }
     
     /**
-     * Die Methode gibt einen Vector zurück, der alle Artikel enthält, die den gleichen Namen haben, wie der übergebene
+     * Die Methode gibt einen ArrayList zurück, der alle Artikel enthält, die den gleichen Namen haben, wie der übergebene
      * String-Parameter. Dies wird zur Erzeugung der BestellPos-Objekte von der Einkaufsliste genutzt.
      *
      * @param  name Die Bezeichnung einer Zutat
-     * @return     Einen Vector, der die Referenzen zu allen Artikel-Objekte enthält, deren Name mit dem Parameter 
+     * @return     Einen ArrayList, der die Referenzen zu allen Artikel-Objekte enthält, deren Name mit dem Parameter 
      *             übereinstimmen
      */
-    public Vector<Artikel> gibAlleArtikel(String name)
+    public ArrayList<Artikel> gibAlleArtikel(String name)
     {
         
-        return new Vector<Artikel>();
+        return new ArrayList<Artikel>();
     }
 
 }
