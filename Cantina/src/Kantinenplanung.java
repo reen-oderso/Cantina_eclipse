@@ -55,6 +55,7 @@ public class Kantinenplanung
     {
         //Erzeugen des Application-Objektes
         Kantinenplanung app = new Kantinenplanung();
+        //Erste Parameter lesen
         app.loadProperties();
         // Alle Dateien einlesen und Rezeptverwaltung, Lieferantenverwaltung (inklusive Datenobjekten) erzeugen
         app.startDateienEinlesen();
@@ -79,7 +80,10 @@ public class Kantinenplanung
             preisListenOrdner =properties.getProperty("PreislistenOrdner");
 
             /* Debug-Print*/
-            System.out.println(anzKantinen+" "+rezeptPfad+" "+hitListenPfad+" "+preisListenOrdner);
+            System.out.println("Anzahl der Kantinen: "+anzKantinen);
+            System.out.println("Pfad zur Rezept-Datei: "+rezeptPfad);
+            System.out.println("Pfad zur Hitlisten-Datei: "+hitListenPfad);
+            System.out.println("Pfad zum Lieferanten-Ordner: "+preisListenOrdner);
         }
         catch (IOException e){
             System.out.println(e.toString());
@@ -93,6 +97,7 @@ public class Kantinenplanung
      */
     public void startDateienEinlesen(){
     	lieferantenverw=new Lieferantenverwaltung();
+    	lieferantenverw.liesLieferantenDateien(preisListenOrdner);
         
     }
     

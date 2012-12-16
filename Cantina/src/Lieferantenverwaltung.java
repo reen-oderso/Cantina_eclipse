@@ -1,4 +1,5 @@
 import java.util.Vector;
+import java.io.*;
 
 /**
  * Die Klasse Lieferantenverwaltung erstellt und verwaltet die Objekte der Klassen Lieferant, Artikel und Lebensmittel und aggregiert diese. 
@@ -64,6 +65,9 @@ public class Lieferantenverwaltung{
      */
     public boolean liesLieferantenDateien(String lieferantenOrdner)
     {
+    	File folder = new File(lieferantenOrdner);
+    	//Debug-Print
+    	System.out.println("Angegebener Lieferantenordner ist ein Ordner: "+folder.isDirectory());
         return true;
     }
     
