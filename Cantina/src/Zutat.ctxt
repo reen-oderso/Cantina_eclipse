@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=zutatName\ menge\ einheit
+comment0.target=Zutat(java.lang.String,\ float,\ java.lang.String)
+comment0.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Zutat\r\n\ \r\n\ @param\ name\ Der\ Name\ der\ Zutat\r\n\ @param\ menge\ Die\ ben\u00F6tigte\ Menge\ der\ Zutat\r\n\ @param\ einheit\ Die\ Masseinheit\ der\ Menge\r\n
+comment1.params=zutatName
+comment1.target=void\ setName(java.lang.String)
+comment1.text=\r\n\ Setzt\ den\ Namen\ der\ Zutat\ \r\n\ @param\ zutatName\ \r\n\ \r\n\ @param\ name\ Der\ Name\ der\ Zutat\ \ \r\n
+comment2.params=
+comment2.target=java.lang.String\ getName()
+comment2.text=\r\n\ Gibt\ den\ Namen\ einer\ Zutat\r\n\ \r\n\ @return\ Name\ der\ Zutat\r\n
+comment3.params=menge
+comment3.target=void\ setMenge(float)
+comment3.text=\r\n\ Setzt\ die\ Menge\ der\ Zutat\ \r\n\ \r\n\ @param\ menge\ Die\ Menge\ der\ Zutat\r\n\ \ \ \ \ \ \ \ \r\n
+comment4.params=
+comment4.target=float\ getMenge()
+comment4.text=\r\n\ Gibt\ die\ Menge\ einer\ Zutat\r\n\ \r\n\ @return\ Menge\ einer\ Zutat\r\n
+comment5.params=einheit
+comment5.target=void\ setEinheit(java.lang.String)
+comment5.text=\r\n\ Setzt\ die\ Einheit\ der\ Zutat\ \r\n\ \r\n\ @param\ einheit\ Die\ Einheit\ der\ Zutat\r\n\ \ \ \ \ \ \ \ \r\n
+comment6.params=
+comment6.target=java.lang.String\ getEinheit()
+comment6.text=\r\n\ Gibt\ die\ Einheit\ einer\ Zutat\r\n\ \r\n\ @return\ Einheit\ der\ Zutat\r\n
+numComments=7

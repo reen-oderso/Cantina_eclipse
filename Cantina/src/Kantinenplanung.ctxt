@@ -1,0 +1,20 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Kantinenplanung()
+comment0.text=\r\n\ Konstruktor\ f\u00FCr\ das\ Objekt,\ bei\ Erstellung\ des\ Objektes\ werden\ die\ Parameter\ aus\ der\ config.properties\ eingelesen.\r\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+comment1.text=\r\n\ F\u00FChrt\ das\ Programm\ aus\ und\ ruft\ die\ einzelnen\ Methoden\ gem\u00E4\u00DF\ der\ Ablauflogik\ auf.\r\n\ \r\n\ @param\ String[]\ \u00DCbergegebene\ Parameter\ werden\ nicht\ verwendet.\r\n
+comment2.params=
+comment2.target=void\ loadProperties()
+comment2.text=\r\n\ Die\ Methode\ l\u00E4dt\ die\ Parameter\ aus\ der\ Datei\ "config.properties"\ im\ Root-Ordner\ in\ die\ Attribute\ der\ Klasse.\r\n
+comment3.params=
+comment3.target=void\ startDateienEinlesen()
+comment3.text=\r\n\ Hier\ wird\ die\ Steuerung\ des\ Datei-Einlesens,\ die\ Erstellung\ der\ Verwaltungsklassen\ und\ der\ Datenschicht\ hinterlegt.\r\n\ Die\ Parameter\ wurden\ bereits\ vorher\ aus\ der\ config.properties\ extrahiert.\r\n
+comment4.params=
+comment4.target=void\ startKantinenplanung()
+comment4.text=\r\n\ Hier\ wird\ die\ Steuerung\ der\ gesamten\ Kantinenplanerstellung\ hinterlegt.\r\n\ Die\ Parameter\ wurden\ bereits\ vorher\ aus\ der\ config.properties\ extrahiert.\r\n
+comment5.params=
+comment5.target=void\ startEinkaufsplanung()
+comment5.text=\r\n\ Hier\ wird\ die\ Steuerung\ der\ gesamten\ Einkaufslistenerstellung\ hinterlegt.\r\n\ Die\ Parameter\ wurden\ bereits\ vorher\ aus\ der\ config.properties\ extrahiert.\r\n
+numComments=6

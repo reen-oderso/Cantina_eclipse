@@ -1,0 +1,23 @@
+#BlueJ class context
+comment0.params=lieferantenverw
+comment0.target=Rezeptverwaltung(Lieferantenverwaltung)
+comment0.text=\ Bereits\ bei\ der\ Konstruktion\ muss\ eine\ Referenz\ zur\ Lieferantenverwaltung\ \u00FCbergeben\ werden,\ da\ diese\ zur\ Typpr\u00FCfung\ ben\u00F6tigt\ wird.\r\n\ \r\n\ @param\ lieferantenverw\ Die\ zur\ Typpr\u00FCfung\ zu\ verwendende\ Lieferantenverwaltung\r\n
+comment1.params=rezeptpfad
+comment1.target=boolean\ liesRezepte(java.lang.String)
+comment1.text=\r\n\ Die\ Methode\ liest\ die\ Rezeptdatei\ ein,\ erstellt\ Rezeptobjekte\ und\ Zutatenobjekte\ daraus\ und\ weist\ die\ Zutaten\ den\ Rezepten\ zu.\ Dann\ werden\ die\ Rezepte\ in\ den\ RezeptArrayList\ gelegt.\r\n\ \r\n\ @param\ \ \ rezeptpfad\ Den\ Pfad\ zur\ Rezeptdatei.\r\n\ @return\ \ Gibt\ True\ zur\u00FCck,\ wenn\ die\ Rezepte\ vollst\u00E4ndig\ eingelesen\ wurden.\ Gibt\ False\ zur\u00FCck,\ falls\ Fehler\ aufgetreten\ sind.\ \ \ \r\n
+comment2.params=hitlistenPfad
+comment2.target=boolean\ liesHitliste(java.lang.String)
+comment2.text=\r\n\ Die\ Methode\ liest\ die\ Hitlistendatei\ ein\ und\ weist\ den\ im\ RezeptArrayList\ enthaltenen\ Rezeptobjekten\ ihre\ Hitlistenposition\ zu.\r\n\ \r\n\ @param\ hitlistenpfad\ Den\ Pfad\ zur\ Hitlistendatei\ \ \r\n\ @return\ \ True\ f\u00FCr\ vollst\u00E4ndige\ Zuweisung,\ False\ f\u00FCr\ unvollst\u00E4ndig\ \ \ \ \r\n
+comment3.params=
+comment3.target=Rezept\ gibFisch()
+comment3.text=\r\n\ Die\ Methode\ gibt\ ein\ zuf\u00E4lliges\ Fischrezept\ aus\ dem\ RezeptArrayList\ zur\u00FCck.\r\n\ \r\n\ @return\ Ein\ zuf\u00E4lliges\ Fischrezept\ \r\n
+comment4.params=
+comment4.target=Rezept\ gibFleisch()
+comment4.text=\r\n\ Die\ Methode\ gibt\ ein\ zuf\u00E4lliges\ Fleischrezept\ aus\ dem\ RezeptArrayList\ zur\u00FCck.\r\n\ \r\n\ @return\ \ \ \ \ \ \ Ein\ zuf\u00E4lliges\ Fleischrezept\r\n
+comment5.params=
+comment5.target=Rezept\ gibVeggie()
+comment5.text=\r\n\ Die\ Methode\ gibt\ ein\ zuf\u00E4lliges\ vegetarisches\ Rezept\ aus\ dem\ RezeptArrayList\ zur\u00FCck.\r\n\ \r\n\ @return\ \ \ \ \ \ \ Ein\ zuf\u00E4lliges\ vegetetarisches\ Rezept\ \r\n
+comment6.params=
+comment6.target=Rezept\ gibRandom()
+comment6.text=\r\n\ Die\ Methode\ gibt\ ein\ zuf\u00E4lliges\ Rezept\ aus\ dem\ RezeptArrayList\ zur\u00FCck.\r\n\ \r\n\ @return\ \ \ \ \ \ \ \ Ein\ zuf\u00E4lliges\ Rezept\ \r\n
+numComments=7

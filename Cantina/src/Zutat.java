@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 /**
  * Die Klasse beschreibt Zutaten durch Name, Menge und deren Einheit.
  * Instanzen der Klasse Zutat sind existenzabhängig von Rezeptobjekten, weshalb Sie eine

@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Bauernhof()
+comment0.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Bauernhof\r\n
+comment1.params=
+comment1.target=float\ getEntfernung()
+comment1.text=\r\n\ Gibt\ die\ Entfernung\ eins\ Bauernhof\ zur\u00FCck.\ Dies\ wird\ f\u00FCr\ die\ Transportkostenberechnung\ innerhalb\ der\ \r\n\ Einkaufsliste\ ben\u00F6tigt.\r\n\r\n\ @return\ \ \ \ Die\ Entfernung\ des\ Bauernhofes.\r\n
+comment2.params=entf
+comment2.target=void\ setEntfernung(float)
+comment2.text=\r\n\ Setzt\ die\ Entfernung\ eines\ Bauernhofes.\r\n\r\n\ @param\ \ entf\ \ Die\ Entfernung\ des\ Bauernhofes\r\n
+numComments=3
