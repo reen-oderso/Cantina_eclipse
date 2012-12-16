@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Exporter()
+comment0.text=\r\n\ Konstruktor\ f\u00FCr\ den\ Exporter\r\n
+comment1.params=kantpl
+comment1.target=boolean\ expKantinenplanFile(Kantinenplan)
+comment1.text=\r\n\ Exportiert\ einen\ Kantinenplan\r\n\ \r\n\ @param\ \ kantpl\ Ein\ Kantinenplan-Objekt\r\n\ @return\ \ \ \ \ True,\ falls\ Export\ erfolgreich,\ false\ falls\ nicht.\ \r\n
+comment2.params=einklist
+comment2.target=boolean\ expEinkaufslisteFile(Einkaufsliste)
+comment2.text=\r\n\ Exportiert\ eine\ Einkaufsliste\r\n\ \r\n\ @param\ \ einklist\ Ein\ Einkaufslisten-Objekt\r\n\ @return\ \ \ \ \ True,\ falls\ Export\ erfolgreich,\ false\ falls\ nicht.\ \r\n
+numComments=3

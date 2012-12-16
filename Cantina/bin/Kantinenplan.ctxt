@@ -1,0 +1,17 @@
+#BlueJ class context
+comment0.params=name\ anzMA
+comment0.target=Kantinenplan(java.lang.String,\ int)
+comment0.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Kantinenplan\r\n\ \r\n\ @param\ name\ Der\ Name\ der\ Kantine/des\ Standortes\r\n\ @param\ anzMA\ Die\ Anzahl\ der\ Mitarbeiter\ des\ Standortes.\r\n
+comment1.params=lieferantenverw\ rezeptverw
+comment1.target=boolean\ erzeugePlan(Lieferantenverwaltung,\ Rezeptverwaltung)
+comment1.text=\r\n\ Die\ Methode\ f\u00FCllt\ den\ Speiseplan\ mit\ Tagesgerichten,\ die\ sie\ aus\ Rezepten\ erzeugt.\ Die\ Rezepte\ erh\u00E4lt\ \r\n\ sie\ von\ der\ als\ Parameter\ zugewiesenen\ Rezeptverwaltung.\ Um\ die\ Verf\u00FCgbarkeit\ der\ Zutaten\ am\ Markt\ sicher-\r\n\ zustellen,\ wird\ auf\ die\ Lieferantenverwaltung\ zur\u00FCckgegriffen.\r\n\ \r\n\ @param\ lieferantenverw\ Die\ Lieferantenverwaltung,\ welche\ die\ Verf\u00FCgbarkeitsinformation\ zur\ Verf\u00FCgung\ stellt.\r\n\ @param\ rezeptverw\ Die\ Rezeptverwaltung,\ die\ die\ Rezepte\ f\u00FCr\ den\ Speiseplan\ zur\ Verf\u00FCgung\ stellen\ kann.\ \r\n\ @return\ True,\ f\u00FCr\ erfolgreiche\ Erstellung,\ False\ falls\ Fehler\ aufgetreten\ sind.\ \ \ \ \ \ \ \r\n
+comment2.params=
+comment2.target=java.util.ArrayList\ getTagesgerichte()
+comment2.text=\r\n\ Die\ Methode\ gibt\ eine\ ArrayList\ zur\u00FCck,\ der\ alle\ Tagesgerichte\ des\ Kantinenplans\ enth\u00E4lt.\r\n\ \r\n\ @return\ Eine\ ArrayList,\ der\ alle\ Tagesgerichte\ enth\u00E4lt.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getStandort()
+comment3.text=\r\n\ Gibt\ den\ Namen\ der\ Kantine\ zur\u00FCck.\r\n\ \r\n\ @return\ Der\ Name\ der\ Kantine.\r\n
+comment4.params=
+comment4.target=int\ getAnzMA()
+comment4.text=\r\n\ Gibt\ die\ Anzahl\ der\ Mitarbeiter\ am\ Standort\ zur\u00FCck.\r\n\ \r\n\ @return\ Der\ Name\ der\ Kantine.\r\n
+numComments=5

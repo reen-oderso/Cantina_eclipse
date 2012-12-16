@@ -1,0 +1,5 @@
+#BlueJ class context
+comment0.params=name
+comment0.target=BedarfPos(java.lang.String)
+comment0.text=\r\n\ Dem\ Konstruktor\ des\ Objekts\ wird\ der\ Name\ der\ Zutat\ \u00FCbergeben.\r\n\ \r\n\ @param\ name\ Der\ Name\ der\ Zutat\r\n
+numComments=1
