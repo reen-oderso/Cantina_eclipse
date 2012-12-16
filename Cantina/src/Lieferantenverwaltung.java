@@ -70,39 +70,44 @@ public class Lieferantenverwaltung{
     	System.out.println("Angegebener Lieferantenordner ist ein Ordner: "+folder.isDirectory());
     	
     	String[] fileList = folder.list();
-        if (folder.isDirectory())
-        {        	
+        if (folder.isDirectory()){        	
         	//Debug-Print
         	System.out.println("Der Ordner "+lieferantenOrdner+" enthält folgende Dateien:");
         	
-        	//Start der Datei-Schleife
-        	for ( int i = 0; i < fileList.length; i++ )
-        	{
+        	//Start der Ordner-Schleife
+        	for ( int i = 0; i < fileList.length; i++ ){
+        		
         		//Debug-Print
         		System.out.println(fileList[i]);
         		
         		//Datei öffnen
         		Datei inFile = new Datei(lieferantenOrdner+"//"+fileList[i]);
         		inFile.openInFile_FS();
+        		int zeilennummer = 0;
                 // Abfrage, ob das Oeffen funktioniert hat
-                if (!inFile.state())
-                {
+        		
+                if (!inFile.state()){
                     // Ausgabe des Fehlers im Terminalfenster
                     System.out.println("Fehler beim öffnen der Eingabedatei "+lieferantenOrdner+"//"+fileList[i]);
                     // Abbrechen der Methode
                     return false;
                 }
-                //
+                
+                //Datei-Schleife
                 while (!inFile.eof()){
                 	
+                	zeilennummer = zeilennummer++; 
                 	String zeile = inFile.readLine_FS();
                 	//Debug-Print
                 	//System.out.println(zeile);
+                	
+
                 	
                 	boolean feldStart = false;
                 	
                 	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
                 	if (!(zeile==null)){
+                		//Zeielnschleife
 	                	for (int k = 0; k < zeile.length(); k++) {
 	                	    char ch = zeile.charAt(k);
 	                	    if (ch == '\"'){
@@ -113,7 +118,16 @@ public class Lieferantenverwaltung{
 	                	    	//System.out.println(k);
 	                	    	//System.out.println(zeile.substring(0,k));
 	                	    	
-	                	    	
+	                	    	//Erste Zeile enthält die Informationen zum Lieferanten
+	                	    	if (zeilennummer==1){
+	                	    		
+	                	    		//genLieferant
+                		
+	                	    	}
+	                	    	else {
+	                	    		
+	                	    		//genArtikel
+	                	    	}
 	                	    } 
 	                	    else {
 	                	        
@@ -128,7 +142,7 @@ public class Lieferantenverwaltung{
     }
     
     /**
-     * Die Methode gibt einen ArrayList zurück, der alle Artikel enthält, die den gleichen Namen haben, wie der übergebene
+     * Die Methode gibt eine ArrayList zurück, die alle Artikel enthält, die den gleichen Namen haben, wie der übergebene
      * String-Parameter. Dies wird zur Erzeugung der BestellPos-Objekte von der Einkaufsliste genutzt.
      *
      * @param  name Die Bezeichnung einer Zutat
