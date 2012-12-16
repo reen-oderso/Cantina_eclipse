@@ -6,8 +6,9 @@ public class Rezeptverwaltung {
 	
 	
 	}
-	public liesRezepte(String rezeptpfad){
+	public boolean liesRezepte(String rezeptpfad){
 		//test
+		return true;
 	}
 	
 }

@@ -1,14 +1,114 @@
+import java.util.*;
+import java.io.*;
+/**
+ * Die Klasse Kantinenplanung ist die auszuführende Klasse, welche die Ablauflogik des Programms umfasst.
+ * Sie enthält neben der Main-Methode auch Attribute für die wesentlichen Parameter, die zum Programmstart notwendig sind.
+ * Diese werden über Java-Properties realisiert.
+ * Außerdem enthält sie die Export-Methoden für die Kantinenplaene und die Einkaufsliste
+ * 
+ * Für den Planungsdurchgang steht diese Klasse mit der Lieferantenverwaltung, der Rezeptverwaltung, dem Kantinenplan,
+ * der Einkaufliste und zuletzt dem Exporter in Assoziation.
+ * 
+ * @author Rene Wiederhold 
+ * @version 0.01
+ */
+public class Kantinenplanung
+{
+    // Die wesentlichen Parameter, welche für die Anwendung benötigt werden
+    /** Die Anzahl der zu erstellenden Kantinenpläne */
+    private int anzKantinen;
+    /** Die Anzahl der Mitarbeiter, welche die erste Kantine besuchen */
+    @SuppressWarnings("unused")
+	private int anzMAKantine1;
+    /** Die Anzahl der Mitarbeiter, welche die zweite Kantine besuchen */
+    @SuppressWarnings("unused")
+	private int anzMAKantine2;
+    /** Der relative oder absolute Pfad zur Rezepte-Datei */
+    private String rezeptPfad;
+    /** Der relative oder absolute Pfad zur Hitliste-Datei */
+    private String hitListenPfad;
+    /** Der relative oder absolute Pfad zum Ordner, welche die Preislisten der Lieferanten enthält */
+    private String preisListenOrdner;
+    /** Die Pauschale, welche mit der Entfernung der Bauernhöfe multipliziert die Transportkosten ergibt */
+    @SuppressWarnings("unused")
+	private float kmSatz;
+    
+    // Attribute für die Verwaltungsklassen
+    @SuppressWarnings("unused")
+	private Rezeptverwaltung rezeptverw;
+    @SuppressWarnings("unused")
+	private Lieferantenverwaltung lieferantenverw;
 
-public class Kantineplanung {
+    /**
+     * Konstruktor für das Objekt, bei Erstellung des Objektes werden die Parameter aus der config.properties eingelesen.
+     */
+    public Kantinenplanung(){
+        
+    }
 
-	/**
-	 * @param args
-	 */
-	public static void main(String[] args) {
-		System.out.println("Hi Lukas, klappt Git?");
-		System.out.println("Dann kanns ja losgehen");
-		System.out.println("DUDA....JAGATEEEEEEE FETZTEt");
-	}
+    /**
+     * Führt das Programm aus und ruft die einzelnen Methoden gemäß der Ablauflogik auf.
+     * 
+     * @param String[] Übergegebene Parameter werden nicht verwendet.
+     */
+    public static void main(String[] args)
+    {
+        //Erzeugen des Application-Objektes
+        Kantinenplanung app = new Kantinenplanung();
+        app.loadProperties();
+        // Alle Dateien einlesen und Rezeptverwaltung, Lieferantenverwaltung (inklusive Datenobjekten) erzeugen
+        app.startDateienEinlesen();
+        // Einen (oder zwei) Kantinenplan erzeugen und mit Tagesgerichten füllen 
+        app.startKantinenplanung();
+        // Die Einkaufsliste für ALLE Kantinenpläne erzeugen
+        app.startEinkaufsplanung();
+    }
 
-	
+    /**
+     * Die Methode lädt die Parameter aus der Datei "config.properties" im Root-Ordner in die Attribute der Klasse.
+     */
+    private void loadProperties(){
+    	try{
+            Properties properties = new Properties();
+            BufferedInputStream stream = new BufferedInputStream(new FileInputStream("config.properties"));
+            properties.load(stream);
+            stream.close();
+            anzKantinen = Integer.parseInt(properties.getProperty("AnzahlKantinen"));
+            rezeptPfad = properties.getProperty("RezeptbuchPfad");
+            hitListenPfad =properties.getProperty("HitlistenPfad");
+            preisListenOrdner =properties.getProperty("PreislistenOrdner");
+
+            /* Debug-Print*/
+            System.out.println(anzKantinen+" "+rezeptPfad+" "+hitListenPfad+" "+preisListenOrdner);
+        }
+        catch (IOException e){
+            System.out.println(e.toString());
+            System.out.println("Die Datei config.properties konnte nicht gelesen werden. Prüfen Sie, ob sie im Anwendungsordner vorhanden ist.");
+        }
+    }
+
+    /**
+     * Hier wird die Steuerung des Datei-Einlesens, die Erstellung der Verwaltungsklassen und der Datenschicht hinterlegt.
+     * Die Parameter wurden bereits vorher aus der config.properties extrahiert.
+     */
+    public void startDateienEinlesen(){
+    	lieferantenverw=new Lieferantenverwaltung();
+        
+    }
+    
+    /**
+     * Hier wird die Steuerung der gesamten Kantinenplanerstellung hinterlegt.
+     * Die Parameter wurden bereits vorher aus der config.properties extrahiert.
+     */
+    public void startKantinenplanung(){
+        
+    }
+    
+    /**
+     * Hier wird die Steuerung der gesamten Einkaufslistenerstellung hinterlegt.
+     * Die Parameter wurden bereits vorher aus der config.properties extrahiert.
+     */
+    public void startEinkaufsplanung(){
+       
+    }
 }
