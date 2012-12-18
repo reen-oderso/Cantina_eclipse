@@ -79,7 +79,7 @@ public class Rezeptverwaltung
         				//Debug-Print
             	    	//System.out.println(k);
         				zeile = zeile.replaceAll("\"", ""); //entfernt die Anführungszeichen aus den String
-            	    	System.out.println(zeile.substring(0,k));
+            	    	//System.out.println(zeile.substring(0,k));
         				
 
         			}

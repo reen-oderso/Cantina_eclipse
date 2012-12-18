@@ -81,66 +81,72 @@ public class Lieferantenverwaltung{
         		System.out.println(fileList[i]);
         		
         		//Datei öffnen
-        		Datei inFile = new Datei(lieferantenOrdner+"//"+fileList[i]);
-        		inFile.openInFile_FS();
-        		int zeilennummer = 0;
-                // Abfrage, ob das Oeffen funktioniert hat
-        		
-                if (!inFile.state()){
-                    // Ausgabe des Fehlers im Terminalfenster
-                    System.out.println("Fehler beim öffnen der Eingabedatei "+lieferantenOrdner+"//"+fileList[i]);
-                    // Abbrechen der Methode
-                    return false;
-                }
-                
-                //Datei-Schleife
-                while (!inFile.eof()){
-                	
-                	zeilennummer = zeilennummer++; 
-                	String zeile = inFile.readLine_FS();
-                	//Debug-Print
-                	//System.out.println(zeile);
-                	
-
-                	
-                	boolean feldStart = false;
-                	
-                	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
-                	if (!(zeile==null)){
-                		//Zeielnschleife
-	                	for (int k = 0; k < zeile.length(); k++) {
-	                	    char ch = zeile.charAt(k);
-	                	    if (ch == '\"'){
-	                	        feldStart = !feldStart;
-	                	    } 
-	                	    else if ((ch == ',' && !feldStart)) {
-	                	    	//Debug-Print
-	                	    	//System.out.println(k);
-	                	    	//System.out.println(zeile.substring(0,k));
-	                	    	
-	                	    	//Erste Zeile enthält die Informationen zum Lieferanten
-	                	    	if (zeilennummer==1){
-	                	    		
-	                	    		//genLieferant
-                		
-	                	    	}
-	                	    	else {
-	                	    		
-	                	    		//genArtikel
-	                	    	}
-	                	    } 
-	                	    else {
-	                	        
-	                	    }
-	                	}
-                	}
-                	
-                }
+        		readFile(lieferantenOrdner+"//"+fileList[i]);
         	}
         }
         return true;
     }
-    
+    /**
+     * Liest eine Lieferantendatei und schreibt die Lieferanten und Artikel in die zugehörigen
+     * ArrayLists
+     * 
+     * @param in Der Pfad zur einzulesenden Lieferantendatei
+     * @return Einen booleschen Wert, ob die Datei erfolgreich eingelesen wurde.
+     */
+    private boolean readFile(String in){
+
+		Datei inFile = new Datei(in);
+    	inFile.openInFile_FS();			//öffnet den readbuffer
+    	// Zeilenzähler für den Import
+		int zeilennummer = 0;
+		
+        // Abfrage, ob das Oeffen funktioniert hat
+        if (!inFile.state()){
+            // Ausgabe des Fehlers im Terminalfenster
+            System.out.println("Fehler beim Öffnen der Eingabedatei "+in);
+            // Abbrechen der Methode
+            return false;
+        }
+        
+        //Datei-Schleife
+        while (!inFile.eof()){
+        	ArrayList<Integer> comma =new ArrayList();
+        	zeilennummer = zeilennummer++; 
+        	String zeile = inFile.readLine_FS();
+        	//Debug-Print
+        	//System.out.println(zeile);
+        	
+        	boolean feldStart = false;
+        	
+        	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
+        	if (!(zeile==null)){
+        		//Zeielnschleife
+            	for (int k = 0; k < zeile.length(); k++) {
+            	    char ch = zeile.charAt(k);
+            	    if (ch == '\"'){
+            	        feldStart = !feldStart;
+            	    } 
+            	    else if ((ch == ',' && !feldStart)) {
+            	    	//Debug-Print
+            	    	//System.out.println(k);
+            	    	//System.out.println(zeile.substring(0,k));
+            	    	
+            	    	comma.add(k);
+            	    } 
+            	    else {
+            	        
+            	    }
+            	} //Ende char-Schleife
+            	
+            	// comma enthält jetzt die Positionen der Feld-Trenner. 
+            	// Damit kann man aus Zeile die Substrings extrahieren
+            	
+            	
+        	}
+
+        }
+    	return true;
+    }
     /**
      * Die Methode gibt eine ArrayList zurück, die alle Artikel enthält, die den gleichen Namen haben, wie der übergebene
      * String-Parameter. Dies wird zur Erzeugung der BestellPos-Objekte von der Einkaufsliste genutzt.
