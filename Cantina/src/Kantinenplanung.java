@@ -98,7 +98,10 @@ public class Kantinenplanung
     public void startDateienEinlesen(){
     	lieferantenverw=new Lieferantenverwaltung();
     	lieferantenverw.liesLieferantenDateien(preisListenOrdner);
-        
+    	
+    	rezeptverw  = new Rezeptverwaltung(); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
+    	rezeptverw.liesRezepte(rezeptPfad);
+    	        
     }
     
     /**

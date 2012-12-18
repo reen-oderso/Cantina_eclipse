@@ -26,7 +26,7 @@ public class Rezeptverwaltung
      * 
      * @param lieferantenverw Die zur Typprüfung zu verwendende Lieferantenverwaltung
      */
-    public Rezeptverwaltung(Lieferantenverwaltung lieferantenverw)
+    public Rezeptverwaltung() //parameter entfernt zum testen (Lieferantenverwaltung lieferantenverw)
     {
      
     }
@@ -39,8 +39,64 @@ public class Rezeptverwaltung
      */
     public boolean liesRezepte(String rezeptpfad) 
     {
+    	//Datei öffnen
+		Datei inFile = new Datei(rezeptpfad);
+		inFile.openInFile_FS();
+		int zeilennummer = 0;
+        
+		// Abfrage, ob das Oeffen funktioniert hat
+        if (!inFile.state()){
+            // Ausgabe des Fehlers im Terminalfenster
+            System.out.println("Fehler beim öffnen der Eingabedatei "+rezeptPfad);
+            // Abbrechen der Methode
+            return false;
+        }
+
+        //Datei-Schleife
+        while (!inFile.eof()){
+        	
+        	zeilennummer = zeilennummer++; 
+        	String zeile = inFile.readLine_FS();
+        	//Debug-Print
+        	//System.out.println(zeile);
+        	
+
+        	
+        	boolean feldStart = false;
+        	
+        	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
+        	if (!(zeile==null)){
+        		// Zeilenschleife zum einlesen jeder Zeile der Datei
+        		for (int k = 0; k < zeile.length(); k++) {
+        			// gibt die Zeichen an der Indexstelle k
+        			char ch = zeile.charAt(k);
+        			// sobald die Zeichkette ein Zeilenende erreicht, setzte Feldstart negiert (true)
+        			if (ch == '\"') {
+        				feldStart = !feldStart;
+        			}
+        			// ansonsten Trenne die Strings, wenn Felstart negiert und "," vorhanden
+        			else if ( (ch == ',' && !feldStart) ) {
+        				//Debug-Print
+            	    	//System.out.println(k);
+        				zeile = zeile.replaceAll("\"", "");
+            	    	System.out.println(zeile.substring(0,k));
+        				
+
+        			}
+        		}
+        	}
+        }
         return true;
-    }
+        }
+       
+        
+        
+      
+        		
+    
+
+       	   
+    
     
     /**
      * Die Methode liest die Hitlistendatei ein und weist den im RezeptArrayList enthaltenen Rezeptobjekten ihre Hitlistenposition zu.
