@@ -5,7 +5,7 @@
  * Die Klasse Grosshandel ist eine Subklasse der Oberklasse Lieferant.
  * 
  * @author Rene Wiederhold 
- * @version
+ * @version 0.01
  */
 public class Grosshandel extends Lieferant
 {
@@ -17,6 +17,8 @@ public class Grosshandel extends Lieferant
     public Grosshandel()
     {
         lieferkostenSatz = 0;
+        //Debug-Print
+        System.out.println("Ein Grosshandel wurde konstruiert");
     }
     
      /**

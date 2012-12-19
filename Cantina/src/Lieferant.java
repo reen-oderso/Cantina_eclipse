@@ -7,11 +7,11 @@ import java.util.ArrayList;
  * Sie führt die Klassen Bauernhof und Grosshandel als Subklassen.
  * 
  * @author Rene Wiederhold
- * @version (eine Version-Nummer oder ein Datum)
+ * @version 0.01
  */
 public abstract class Lieferant
 {
-    private String lieferantName;
+	private String lieferantName;
     private ArrayList<Artikel> artikelArrayList;
 
     /**
@@ -19,9 +19,9 @@ public abstract class Lieferant
      * 
      * @param  lieferantName Der Name des Lieferanten
      */
-    public void setLieferantName(String lieferantName)
+    public void setLieferantName(String name)
     {
-        
+        lieferantName=name;
     }
     
     /**
