@@ -86,16 +86,18 @@ public class Lieferantenverwaltung {
 			// Debug-Print
 			System.out.println("Der Ordner " + lieferantenOrdner
 					+ " enthält folgende Dateien:");
-
+			//Test der preisliste3.csv statt allen Preislisten
+			
 			// Start der Ordner-Schleife
-			for (int i = 0; i < fileList.length; i++) {
+  			for (int i = 0; i < fileList.length; i++) {
 
 				// Debug-Print
 				System.out.println(fileList[i]);
 
 				// Datei öffnen
-				readFile(lieferantenOrdner + "//" + fileList[i]);
+				//readFile(lieferantenOrdner + "//" + fileList[i]);
 			}
+  			readFile(lieferantenOrdner + "//" + fileList[2]);
 		}
 		return true;
 	}
@@ -112,8 +114,6 @@ public class Lieferantenverwaltung {
 
 		Datei inFile = new Datei(in);
 		inFile.openInFile_FS(); // öffnet den readbuffer
-		// Zeilenzähler für den Import
-		int zeilennummer = 0;
 
 		// Abfrage, ob das Oeffen funktioniert hat
 		if (!inFile.state()) {
@@ -123,38 +123,63 @@ public class Lieferantenverwaltung {
 			return false;
 		}
 
+		// Zeilenzähler für den Import
+		int zeilennummer = 0;
+		Lieferant lieferant = new Lieferant();
+		
 		// Datei-Schleife
 		while (!inFile.eof()) {
+			//Erhöhung des Zeilenzählers
 			zeilennummer = ++zeilennummer;
+			//Liest eine Zeile aus der Eingabedatei
 			String zeile = inFile.readLine_FS();
 
 			//Prüft ob zeile keinen NullPointer enthält.
 			if (!(zeile == null)) {
+				//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
 				ArrayList<String> fields = Kantinenplanung.CSVService.getFields(zeile);
 				
 				//Debug-Print
-				System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2));
+				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2));
+				
 				//Erste Zeile enthält Lieferanteninformationen
 				if (zeilennummer == 1) {
+					//Es liegt ein Grosshandel-Einkaufsliste vor
 					if ((fields.get(0)).compareTo("Grosshandel")==0){
 						//Grosshandel erzeugen
-						Grosshandel tmp = new Grosshandel();
-						
-						tmp.setLieferantName((fields.get(1)).toString());
-						
-						System.out.println(tmp.getLieferantenName());
+						lieferant = new Grosshandel();
+						//Namen setzen
+						lieferant.setLieferantName((fields.get(1)).toString());
+						//Debug-Print
+						System.out.println(lieferant.getLieferantenName());
 					}
+					//Es liegt eine Bauernhof-Einkaufsliste vor.
 					else if ((fields.get(0)).compareTo("Bauer")==0){
 						//Grosshandel erzeugen
-						Bauernhof tmp = new Bauernhof();
-						
-						tmp.setLieferantName((fields.get(1)).toString());
-						
-						System.out.println(tmp.getLieferantenName());
+						lieferant = new Bauernhof();
+						//Namen setzen
+						lieferant.setLieferantName((fields.get(1)).toString());
+						//Debug-Print
+						System.out.println(lieferant.getLieferantenName());
 					} 
 				} 
 				else {
 					//Artikel erzeugen und Lieferanten zuweisen
+					if (!(fields.get(2).length()==0)){
+						Artikel art = new Artikel(fields.get(2));
+						art.setArikelanzahl(fields.size());		//Nur zu Testzwecken wegen IndexOutofBound für Index 5
+						art.setEinheit(fields.get(1));
+						art.setPreis(Float.valueOf(fields.get(4).trim()).floatValue());  //anscheinend macht das Komma im Typecast-Probleme
+						art.setGebindegroesse(Float.valueOf(fields.get(0).trim()).floatValue());
+						art.setLieferant(lieferant);
+						
+						System.out.println("Artikelname: "+art.getName());
+						System.out.println("Artikelname: "+art.getGebindegroesse());
+						System.out.println("Artikelname: "+art.getEinheit());
+						System.out.println("Artikelname: "+art.getPreis());
+						System.out.println("Artikelname: "+art.getArtikelanzahl());
+						System.out.println("Artikelname: "+art.getLieferant().getLieferantenName());
+					}
 				}
 			}
 

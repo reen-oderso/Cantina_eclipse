@@ -9,11 +9,15 @@ import java.util.ArrayList;
  * @author Rene Wiederhold
  * @version 0.01
  */
-public abstract class Lieferant
+public class Lieferant
 {
 	private String lieferantName;
     private ArrayList<Artikel> artikelArrayList;
-
+    
+    public Lieferant(){
+    	
+    }
+    
     /**
      * Setzt den Namen eines Lieferanten
      * 
