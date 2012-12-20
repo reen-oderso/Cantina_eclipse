@@ -55,17 +55,23 @@ public class Rezeptverwaltung
         //Datei-Schleife
         while (!inFile.eof()){
         	
+        	//Zeilenzähler erhöhen
         	zeilennummer = zeilennummer++; 
+        	// Zeile einer Datei einlesen
         	String zeile = inFile.readLine_FS();
         	//Debug-Print
         	//System.out.println(zeile);
         	
-
-        	
-        	boolean feldStart = false;
-        	
+   	
         	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
         	if (!(zeile==null)){
+        		
+        		//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
+				ArrayList<String> fields = Kantinenplanung.CSVService.getFields(zeile);
+        		
+				//Debug-Print
+				System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert4: "+fields.get(3));
+				/*
         		// Zeilenschleife zum einlesen jeder Zeile der Datei
         		for (int k = 0; k < zeile.length(); k++) {
         			// gibt die Zeichen an der Indexstelle k
@@ -83,7 +89,9 @@ public class Rezeptverwaltung
         				
 
         			}
+        			
         		}
+        		*/
         	}
         }
         return true;
