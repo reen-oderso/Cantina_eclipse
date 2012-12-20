@@ -21,15 +21,17 @@ import java.io.*;
  * @version 0.01
  */
 public class Lieferantenverwaltung {
-	private ArrayList<Artikel> artikelArrayList;
-	private ArrayList<Lieferant> lieferantArrayList;
-	private ArrayList<Lebensmittel> lebensmittelArrayList;
+	private ArrayList<Artikel> artList;
+	private ArrayList<Lieferant> liefList;
+	private ArrayList<Lebensmittel> lebensmittelList;
 
 	/**
 	 * Der Konstruktor der Lieferantenverwaltung
 	 */
 	public Lieferantenverwaltung() {
-
+		artList = new ArrayList<Artikel>();
+		liefList = new ArrayList<Lieferant>();
+		lebensmittelList = new ArrayList<Lebensmittel>();
 	}
 
 	/**
@@ -42,8 +44,7 @@ public class Lieferantenverwaltung {
 	 * @return Einen standardisierten String, der die Typ-Bezeichnung enthält.
 	 */
 	public String holeTyp(Zutat zutat) {
-		// tragen Sie hier den Code ein
-		String typ = "FLEISCH";
+		String typ = "f";
 		return typ;
 	}
 
@@ -75,7 +76,7 @@ public class Lieferantenverwaltung {
 	 * @return True, falls die Lieferantendateien eingelesen werden konnten,
 	 *         False, falls Probleme aufgetreten sind.
 	 */
-	public boolean liesLieferantenDateien(String lieferantenOrdner) {
+	public boolean readLiefFolder(String lieferantenOrdner) {
 		File folder = new File(lieferantenOrdner);
 		// Debug-Print
 		System.out.println("Angegebener Lieferantenordner ist ein Ordner: "
@@ -83,21 +84,31 @@ public class Lieferantenverwaltung {
 
 		String[] fileList = folder.list();
 		if (folder.isDirectory()) {
-			// Debug-Print
-			System.out.println("Der Ordner " + lieferantenOrdner
-					+ " enthält folgende Dateien:");
-			//Test der preisliste3.csv statt allen Preislisten
-			
 			// Start der Ordner-Schleife
   			for (int i = 0; i < fileList.length; i++) {
-
-				// Debug-Print
-				System.out.println(fileList[i]);
-
 				// Datei öffnen
-				//readFile(lieferantenOrdner + "//" + fileList[i]);
+				if (readLiefFile(lieferantenOrdner + "//" + fileList[i])==true){
+					//Debug-Print
+					System.out.println("Die Datei "+fileList[i]+" wurde erfolgreich eingelesen");
+				}
 			}
-  			readFile(lieferantenOrdner + "//" + fileList[2]);
+
+			//Debug-Print aus der Artikelliste
+  			for (int j=0; j < artList.size(); j++){
+  				Artikel art=artList.get(j);
+				System.out.println("Artikelname: "+art.getName());
+				System.out.println("Gebindegröße: "+art.getGebindegroesse());
+				System.out.println("Einheit: "+art.getEinheit());
+				System.out.println("Einzelpreis: "+art.getPreis());
+				System.out.println("Artikelanzahl: "+art.getArtikelanzahl());
+				System.out.println("Lieferantname: "+art.getLieferant().getLieferantenName());
+  			}
+  			//Debug-Print aus der Lieferantenliste
+  			for (int k=0; k<liefList.size();k++){
+  				Lieferant lief=liefList.get(k);
+  				System.out.println(lief.getLieferantenName());
+  				System.out.println(lief.getClass().toString().equals("class Bauernhof"));
+  			}
 		}
 		return true;
 	}
@@ -110,7 +121,7 @@ public class Lieferantenverwaltung {
 	 *            Der Pfad zur einzulesenden Lieferantendatei
 	 * @return Einen booleschen Wert, ob die Datei erfolgreich eingelesen wurde.
 	 */
-	private boolean readFile(String in) {
+	private boolean readLiefFile(String in) {
 
 		Datei inFile = new Datei(in);
 		inFile.openInFile_FS(); // öffnet den readbuffer
@@ -125,7 +136,6 @@ public class Lieferantenverwaltung {
 
 		// Zeilenzähler für den Import
 		int zeilennummer = 0;
-		Lieferant lieferant = new Lieferant();
 		
 		// Datei-Schleife
 		while (!inFile.eof()) {
@@ -137,48 +147,54 @@ public class Lieferantenverwaltung {
 			//Prüft ob zeile keinen NullPointer enthält.
 			if (!(zeile == null)) {
 				//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
-				ArrayList<String> fields = Kantinenplanung.CSVService.getFields(zeile);
-				
-				//Debug-Print
-				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2));
+				ArrayList<String> fields = CSVService.getFields(zeile);
 				
 				//Erste Zeile enthält Lieferanteninformationen
 				if (zeilennummer == 1) {
 					//Es liegt ein Grosshandel-Einkaufsliste vor
-					if ((fields.get(0)).compareTo("Grosshandel")==0){
+					if ((fields.get(0)).equals("Grosshandel")){
 						//Grosshandel erzeugen
-						lieferant = new Grosshandel();
+						Grosshandel lieferant = new Grosshandel();
+						
 						//Namen setzen
 						lieferant.setLieferantName((fields.get(1)).toString());
+						lieferant.setKostensatz( Float.valueOf( (fields.get(2).replaceAll(",",".")) ).floatValue() );
+						
+						liefList.add(lieferant);
+						
 						//Debug-Print
-						System.out.println(lieferant.getLieferantenName());
+						//System.out.println(lieferant.getLieferantenName());
 					}
 					//Es liegt eine Bauernhof-Einkaufsliste vor.
-					else if ((fields.get(0)).compareTo("Bauer")==0){
-						//Grosshandel erzeugen
-						lieferant = new Bauernhof();
-						//Namen setzen
+					else if ((fields.get(0)).equals("Bauer")){
+						//Bauernhof erzeugen
+						Bauernhof lieferant = new Bauernhof();
+						
+						//Namen und Entfernung setzen
 						lieferant.setLieferantName((fields.get(1)).toString());
+						lieferant.setEntfernung( Float.valueOf( (fields.get(2).replaceAll(",",".")) ).floatValue() );
+						
+						//Lieferant der Lieferantenliste hinzufügen
+						liefList.add(lieferant);
+						
 						//Debug-Print
-						System.out.println(lieferant.getLieferantenName());
+						//System.out.println(lieferant.getLieferantenName());
 					} 
 				} 
 				else {
 					//Artikel erzeugen und Lieferanten zuweisen
 					if (!(fields.get(2).length()==0)){
 						Artikel art = new Artikel(fields.get(2));
-						art.setArikelanzahl(Integer.parseInt(fields.get(5)));		//Nur zu Testzwecken wegen IndexOutofBound für Index 5
+						art.setArikelanzahl(Integer.parseInt(fields.get(5)));		
 						art.setEinheit(fields.get(1));
-						art.setPreis( Float.valueOf( (fields.get(4).replaceAll(",",".")) ).floatValue() );  //anscheinend macht das Komma im Typecast-Probleme
+						//Das Komma im String muss in einen Punkt umgewandelt werden, sonst funktioniert der Typecast nicht.
+						art.setPreis( Float.valueOf( (fields.get(4).replaceAll(",",".")) ).floatValue() );
 						art.setGebindegroesse( Float.valueOf( (fields.get(0).replaceAll(",",".")) ).floatValue() );
-						art.setLieferant(lieferant);
+						art.setLieferant(liefList.get(liefList.size()-1));
 						
-						System.out.println("Artikelname: "+art.getName());
-						System.out.println("Artikelname: "+art.getGebindegroesse());
-						System.out.println("Artikelname: "+art.getEinheit());
-						System.out.println("Artikelname: "+art.getPreis());
-						System.out.println("Artikelname: "+art.getArtikelanzahl());
-						System.out.println("Artikelname: "+art.getLieferant().getLieferantenName());
+						artList.add(art);
+						addLebensmittel(art.getName(),art.getArtikelanzahl()*art.getGebindegroesse(),fields.get(3));
+						
 					}
 				}
 			}
@@ -197,9 +213,25 @@ public class Lieferantenverwaltung {
 	 * @return Einen ArrayList, der die Referenzen zu allen Artikel-Objekte
 	 *         enthält, deren Name mit dem Parameter übereinstimmen
 	 */
+	
 	public ArrayList<Artikel> gibAlleArtikel(String name) {
-
 		return new ArrayList<Artikel>();
+	}
+	
+	/**
+	 * Die Methode prüft, ob in der Lebensmittelliste der Lieferantenverwaltung bereits ein Lebensmittel vorhanden 
+	 * ist, dessen Name mit dem übergegebenen String lm übereinstimmt. Ist dies der Fall wird nur die Menge m aufaddiert. 
+	 * Existiert noch kein Lebensmittel mit dem Namen lm, wird ein neues Lebensmittelobjekt erzeugt, die Menge m diesem 
+	 * Objekt zugewiesen und das Lebensmittel-Objekt in die Lebensmittelliste eingefügt.
+	 * Außerdem wird der Typ eines Lebensmittels gesetzt, sofern ein neues Lebensmittelobjekt erzeugt werden muss.
+	 * 
+	 * @param lm Der Name des Lebensmittel
+	 * @param m Die zu berücksichtigende Menge des Lebensmittel  
+	 * @param typ Der Typ des Lebensmittel als standardisierter String. "m" für Meat, "f" für Fisch, "" für vegetarisch.
+	 */
+	
+	private void addLebensmittel(String lm, float m, String typ) {
+		
 	}
 
 }

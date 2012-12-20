@@ -16,10 +16,8 @@ public class Bauernhof extends Lieferant
      */
     public Bauernhof()
     {
-        // Instanzvariable initialisieren
         entfernung = 0;
-        //Debug-Print
-        System.out.println("Ein Bauernhof wurde konstruiert");
+
     }
     
     /**

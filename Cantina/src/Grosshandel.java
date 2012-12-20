@@ -9,16 +9,14 @@
  */
 public class Grosshandel extends Lieferant
 {
-    private float lieferkostenSatz;     //Der Kostensatz, welcher pro bestellten Artikel fällig wird. 
+    private float kostensatz;     //Der Kostensatz, welcher pro bestellten Artikel fällig wird. 
 
     /**
      * Konstruktor für Objekte der Klasse Grosshandel
      */
     public Grosshandel()
     {
-        lieferkostenSatz = 0;
-        //Debug-Print
-        System.out.println("Ein Grosshandel wurde konstruiert");
+        kostensatz = 0;
     }
     
      /**
@@ -29,16 +27,16 @@ public class Grosshandel extends Lieferant
      */
     public float getLieferkostensatz()
     {
-        return lieferkostenSatz;
+        return kostensatz;
     }
     
     /**
      * Setzt den Lieferkostensatz eines Grosshandels.
      *
-     * @param  entf  Der Lieferkostensatz des Grosshandels
+     * @param  liefko  Der Lieferkostensatz des Grosshandels
      */
-    public void setLieferkostensatz(float entf)
+    public void setKostensatz(float liefko)
     {
-
+    	kostensatz=liefko;
     }
 }

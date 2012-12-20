@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * @author Rene Wiederhold
  * @version 0.01
  */
-public class Lieferant
+public abstract class Lieferant
 {
 	private String lieferantName;
     private ArrayList<Artikel> artikelArrayList;
@@ -33,7 +33,7 @@ public class Lieferant
      *
      * @return     Der Name des Lieferanten
      */
-    public String getLieferantenName()
+    public String getLieferantenName() 
     {
         return lieferantName;
     }

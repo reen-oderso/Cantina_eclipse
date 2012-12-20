@@ -14,41 +14,7 @@ import java.io.*;
  */
 public class Kantinenplanung
 {
-    /**
-     * Die Klasse CSVServive stellt Methoden zur Verarbeitung von csv-Dateien bereit.  
-     * @author reen
-     */
-	
-	//Frag mich nicht warum die hier rein muss, ich hab keine Ahnung wie man sonst eine static-Klasse erzeugt.
-	
-	public static class CSVService {
-    	
-    	/**
-    	 * Gibt eine ArrayList zurück, die die einzelnen Felder eines CSV-Eingabe-Strings umfasst.
-    	 * @param csv Ein String, der Komma-getrennte Werte (comma-separated values enthält
-    	 * @return Eine ArrayList mit den Feldern der CSV-Eingabe als Werte
-    	 */
-    	public static ArrayList<String> getFields(String csv){
-    		
-    		ArrayList<String> fields = new ArrayList<String>();
-    		boolean fieldStarted = false;
-    		StringBuffer tmpBuffer = new StringBuffer();
-    		for (int i = 0; i < csv.length(); i++) {
-    		    char ch = csv.charAt(i);
-    		    if (ch == '\"'){
-    		        fieldStarted = !fieldStarted;
-    		    } else if ((ch == ',' && !fieldStarted)) {
-    		        fields.add((tmpBuffer.toString()).replaceAll("\"",""));
-    		        tmpBuffer = new StringBuffer();
-    		    } else {
-    		        tmpBuffer.append(ch);
-    		    }
-    		}
-    		fields.add((tmpBuffer.toString().replaceAll("\"","")));
-    		return fields;
-    	}
-	}
-
+    
 	// Die wesentlichen Parameter, welche für die Anwendung benötigt werden
     /** Die Anzahl der zu erstellenden Kantinenpläne */
     private int anzKantinen;
@@ -130,10 +96,10 @@ public class Kantinenplanung
      */
     public void startDateienEinlesen(){
     	lieferantenverw=new Lieferantenverwaltung();
-    	lieferantenverw.liesLieferantenDateien(preisListenOrdner);
+    	lieferantenverw.readLiefFolder(preisListenOrdner);
     	
-    	rezeptverw  = new Rezeptverwaltung(); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
-    	rezeptverw.liesRezepte(rezeptPfad);
+    	//rezeptverw  = new Rezeptverwaltung(); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
+    	//rezeptverw.liesRezepte(rezeptPfad);
     	        
     }
     

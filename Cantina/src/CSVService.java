@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-
 public class CSVService {
 	public static ArrayList<String> getFields(String csv){
 		
