@@ -44,6 +44,7 @@ public class Kantinenplanung
     		        tmpBuffer.append(ch);
     		    }
     		}
+    		fields.add((tmpBuffer.toString().replaceAll("\"","")));
     		return fields;
     	}
 	}

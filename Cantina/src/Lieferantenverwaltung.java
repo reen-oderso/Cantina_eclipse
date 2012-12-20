@@ -130,7 +130,7 @@ public class Lieferantenverwaltung {
 		// Datei-Schleife
 		while (!inFile.eof()) {
 			//Erhöhung des Zeilenzählers
-			zeilennummer = ++zeilennummer;
+			zeilennummer++;
 			//Liest eine Zeile aus der Eingabedatei
 			String zeile = inFile.readLine_FS();
 
@@ -167,10 +167,10 @@ public class Lieferantenverwaltung {
 					//Artikel erzeugen und Lieferanten zuweisen
 					if (!(fields.get(2).length()==0)){
 						Artikel art = new Artikel(fields.get(2));
-						art.setArikelanzahl(fields.size());		//Nur zu Testzwecken wegen IndexOutofBound für Index 5
+						art.setArikelanzahl(Integer.parseInt(fields.get(5)));		//Nur zu Testzwecken wegen IndexOutofBound für Index 5
 						art.setEinheit(fields.get(1));
-						art.setPreis(Float.valueOf(fields.get(4).trim()).floatValue());  //anscheinend macht das Komma im Typecast-Probleme
-						art.setGebindegroesse(Float.valueOf(fields.get(0).trim()).floatValue());
+						art.setPreis( Float.valueOf( (fields.get(4).replaceAll(",",".")) ).floatValue() );  //anscheinend macht das Komma im Typecast-Probleme
+						art.setGebindegroesse( Float.valueOf( (fields.get(0).replaceAll(",",".")) ).floatValue() );
 						art.setLieferant(lieferant);
 						
 						System.out.println("Artikelname: "+art.getName());
