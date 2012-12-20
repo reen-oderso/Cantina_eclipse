@@ -29,7 +29,7 @@ public class Rezept
      */
     public Rezept(String name)
     {
-
+    	this.name =name;
     }
     
      /**
@@ -38,7 +38,7 @@ public class Rezept
      * @param name Name des Rezepts
      */
     public void setName (String name){
-        
+        this.name = name;
     }
     
     /**

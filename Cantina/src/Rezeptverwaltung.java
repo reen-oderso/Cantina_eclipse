@@ -70,28 +70,17 @@ public class Rezeptverwaltung
 				ArrayList<String> fields = CSVService.getFields(zeile);
 				
 				//Debug-Print
-				System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
-				/*
-        		// Zeilenschleife zum einlesen jeder Zeile der Datei
-        		for (int k = 0; k < zeile.length(); k++) {
-        			// gibt die Zeichen an der Indexstelle k
-        			char ch = zeile.charAt(k);
-        			// sobald die Zeichkette ein Zeilenende erreicht, setzte Feldstart negiert (true)
-        			if (ch == '\"') {
-        				feldStart = !feldStart;
-        			}
-        			// ansonsten Trenne die Strings, wenn Felstart negiert und "," vorhanden
-        			else if ( (ch == ',' && !feldStart) ) {
-        				//Debug-Print
-            	    	//System.out.println(k);
-        				zeile = zeile.replaceAll("\"", ""); //entfernt die Anführungszeichen aus den String
-            	    	//System.out.println(zeile.substring(0,k));
-        				
-
-        			}
+				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
+			
+			if(zeilennummer == 0){
+				Rezept rezept = new Rezept(fields.get(0));
+				rezept.setName(fields.get(0).toString());
+				System.out.println(rezept.getName());
+			}
         			
-        		}
-        		*/
+        			
+        		
+        		
         	}
         }
         return true;
