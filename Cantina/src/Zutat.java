@@ -23,9 +23,11 @@ public class Zutat
      * @param menge Die benötigte Menge der Zutat
      * @param einheit Die Masseinheit der Menge
      */
-    public Zutat(String zutatName, float menge, String einheit)
+    public Zutat(String name, float menge, String einheit)
     {
-
+    	this.name=name;
+    	this.menge=menge;
+    	this.einheit=einheit;
     }
     
     /**

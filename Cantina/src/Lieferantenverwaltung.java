@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.io.*;
 
 /**
@@ -23,7 +24,7 @@ import java.io.*;
 public class Lieferantenverwaltung {
 	private ArrayList<Artikel> artList;
 	private ArrayList<Lieferant> liefList;
-	private ArrayList<Lebensmittel> lebensmittelList;
+	private ArrayList<Lebensmittel> lmList;
 
 	/**
 	 * Der Konstruktor der Lieferantenverwaltung
@@ -31,7 +32,7 @@ public class Lieferantenverwaltung {
 	public Lieferantenverwaltung() {
 		artList = new ArrayList<Artikel>();
 		liefList = new ArrayList<Lieferant>();
-		lebensmittelList = new ArrayList<Lebensmittel>();
+		lmList = new ArrayList<Lebensmittel>();
 	}
 
 	/**
@@ -44,7 +45,15 @@ public class Lieferantenverwaltung {
 	 * @return Einen standardisierten String, der die Typ-Bezeichnung enthält.
 	 */
 	public String holeTyp(Zutat zutat) {
-		String typ = "f";
+		String typ = "";
+		Iterator<Lebensmittel> it = lmList.iterator();
+		while (it.hasNext()){
+			Lebensmittel lm=it.next();
+			if (lm.getName().equals(zutat.getName())){
+				typ=lm.getTyp();
+				break;
+			}
+		}
 		return typ;
 	}
 
@@ -85,30 +94,39 @@ public class Lieferantenverwaltung {
 		String[] fileList = folder.list();
 		if (folder.isDirectory()) {
 			// Start der Ordner-Schleife
-  			for (int i = 0; i < fileList.length; i++) {
+			for (int i = 0; i < fileList.length; i++) {
 				// Datei öffnen
-				if (readLiefFile(lieferantenOrdner + "//" + fileList[i])==true){
-					//Debug-Print
-					System.out.println("Die Datei "+fileList[i]+" wurde erfolgreich eingelesen");
+				if (readLiefFile(lieferantenOrdner + "//" + fileList[i]) == true) {
+					// Debug-Print
+					System.out.println("Die Datei " + fileList[i]
+							+ " wurde erfolgreich eingelesen");
 				}
 			}
 
-			//Debug-Print aus der Artikelliste
-  			for (int j=0; j < artList.size(); j++){
-  				Artikel art=artList.get(j);
-				System.out.println("Artikelname: "+art.getName());
-				System.out.println("Gebindegröße: "+art.getGebindegroesse());
-				System.out.println("Einheit: "+art.getEinheit());
-				System.out.println("Einzelpreis: "+art.getPreis());
-				System.out.println("Artikelanzahl: "+art.getArtikelanzahl());
-				System.out.println("Lieferantname: "+art.getLieferant().getLieferantenName());
-  			}
-  			//Debug-Print aus der Lieferantenliste
-  			for (int k=0; k<liefList.size();k++){
-  				Lieferant lief=liefList.get(k);
-  				System.out.println(lief.getLieferantenName());
-  				System.out.println(lief.getClass().toString().equals("class Bauernhof"));
-  			}
+			/*// Debug-Print aus der Artikelliste
+			for (int j = 0; j < artList.size(); j++) {
+				Artikel art = artList.get(j);
+				System.out.println("Artikelname: " + art.getName());
+				System.out.println("Gebindegröße: " + art.getGebindegroesse());
+				System.out.println("Einheit: " + art.getEinheit());
+				System.out.println("Einzelpreis: " + art.getPreis());
+				System.out.println("Artikelanzahl: " + art.getArtikelanzahl());
+				System.out.println("Lieferantname: "
+						+ art.getLieferant().getLieferantenName());
+			}
+			// Debug-Print aus der Lieferantenliste
+			for (int k = 0; k < liefList.size(); k++) {
+				Lieferant lief = liefList.get(k);
+				System.out.println(lief.getLieferantenName());
+				System.out.println(lief.getClass().toString()
+						.equals("class Bauernhof"));
+			}
+			//Debug-Print aus der Lebensmittelliste
+			for (int l=0;l<lmList.size();l++){
+				Lebensmittel lm=lmList.get(l);
+				System.out.println("Name: "+lm.getName()+" Menge: "+lm.getMenge()+" Typ: "+lm.getTyp());
+			}
+			System.out.println(lmList.size());*/
 		}
 		return true;
 	}
@@ -136,65 +154,75 @@ public class Lieferantenverwaltung {
 
 		// Zeilenzähler für den Import
 		int zeilennummer = 0;
-		
+
 		// Datei-Schleife
 		while (!inFile.eof()) {
-			//Erhöhung des Zeilenzählers
+			// Erhöhung des Zeilenzählers
 			zeilennummer++;
-			//Liest eine Zeile aus der Eingabedatei
+			// Liest eine Zeile aus der Eingabedatei
 			String zeile = inFile.readLine_FS();
 
-			//Prüft ob zeile keinen NullPointer enthält.
+			// Prüft ob zeile keinen NullPointer enthält.
 			if (!(zeile == null)) {
-				//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
+				// Der CSVService macht aus den Eingabe-String (Zeile aus Datei)
+				// eine ArrayList, die die einzelnen Werte getrennt enthält
 				ArrayList<String> fields = CSVService.getFields(zeile);
-				
-				//Erste Zeile enthält Lieferanteninformationen
+
+				// Erste Zeile enthält Lieferanteninformationen
 				if (zeilennummer == 1) {
-					//Es liegt ein Grosshandel-Einkaufsliste vor
-					if ((fields.get(0)).equals("Grosshandel")){
-						//Grosshandel erzeugen
+					// Es liegt ein Grosshandel-Einkaufsliste vor
+					if ((fields.get(0)).equals("Grosshandel")) {
+						// Grosshandel erzeugen
 						Grosshandel lieferant = new Grosshandel();
-						
-						//Namen setzen
+
+						// Namen setzen
 						lieferant.setLieferantName((fields.get(1)).toString());
-						lieferant.setKostensatz( Float.valueOf( (fields.get(2).replaceAll(",",".")) ).floatValue() );
-						
+						lieferant.setKostensatz(Float.valueOf(
+								(fields.get(2).replaceAll(",", ".")))
+								.floatValue());
+
 						liefList.add(lieferant);
-						
-						//Debug-Print
-						//System.out.println(lieferant.getLieferantenName());
+
+						// Debug-Print
+						// System.out.println(lieferant.getLieferantenName());
 					}
-					//Es liegt eine Bauernhof-Einkaufsliste vor.
-					else if ((fields.get(0)).equals("Bauer")){
-						//Bauernhof erzeugen
+					// Es liegt eine Bauernhof-Einkaufsliste vor.
+					else if ((fields.get(0)).equals("Bauer")) {
+						// Bauernhof erzeugen
 						Bauernhof lieferant = new Bauernhof();
-						
-						//Namen und Entfernung setzen
+
+						// Namen und Entfernung setzen
 						lieferant.setLieferantName((fields.get(1)).toString());
-						lieferant.setEntfernung( Float.valueOf( (fields.get(2).replaceAll(",",".")) ).floatValue() );
-						
-						//Lieferant der Lieferantenliste hinzufügen
+						lieferant.setEntfernung(Float.valueOf(
+								(fields.get(2).replaceAll(",", ".")))
+								.floatValue());
+
+						// Lieferant der Lieferantenliste hinzufügen
 						liefList.add(lieferant);
-						
-						//Debug-Print
-						//System.out.println(lieferant.getLieferantenName());
-					} 
-				} 
-				else {
-					//Artikel erzeugen und Lieferanten zuweisen
-					if (!(fields.get(2).length()==0)){
+
+						// Debug-Print
+						// System.out.println(lieferant.getLieferantenName());
+					}
+				} else {
+					// Artikel erzeugen und Lieferanten zuweisen
+					if (!(fields.get(2).length() == 0)) {
 						Artikel art = new Artikel(fields.get(2));
-						art.setArikelanzahl(Integer.parseInt(fields.get(5)));		
+						art.setArikelanzahl(Integer.parseInt(fields.get(5)));
 						art.setEinheit(fields.get(1));
-						//Das Komma im String muss in einen Punkt umgewandelt werden, sonst funktioniert der Typecast nicht.
-						art.setPreis( Float.valueOf( (fields.get(4).replaceAll(",",".")) ).floatValue() );
-						art.setGebindegroesse( Float.valueOf( (fields.get(0).replaceAll(",",".")) ).floatValue() );
-						art.setLieferant(liefList.get(liefList.size()-1));
-						
+						// Das Komma im String muss in einen Punkt umgewandelt
+						// werden, sonst funktioniert der Typecast nicht.
+						art.setPreis(Float.valueOf(
+								(fields.get(4).replaceAll(",", ".")))
+								.floatValue());
+						art.setGebindegroesse(Float.valueOf(
+								(fields.get(0).replaceAll(",", ".")))
+								.floatValue());
+						art.setLieferant(liefList.get(liefList.size() - 1));
+
 						artList.add(art);
-						addLebensmittel(art.getName(),art.getArtikelanzahl()*art.getGebindegroesse(),fields.get(3));
-						
+						addLebensmittel(art.getName(), art.getArtikelanzahl()
+								* art.getGebindegroesse(),art.getEinheit(), fields.get(3));
+
 					}
 				}
 			}
@@ -213,25 +241,88 @@ public class Lieferantenverwaltung {
 	 * @return Einen ArrayList, der die Referenzen zu allen Artikel-Objekte
 	 *         enthält, deren Name mit dem Parameter übereinstimmen
 	 */
-	
 	public ArrayList<Artikel> gibAlleArtikel(String name) {
 		return new ArrayList<Artikel>();
 	}
-	
+
 	/**
-	 * Die Methode prüft, ob in der Lebensmittelliste der Lieferantenverwaltung bereits ein Lebensmittel vorhanden 
-	 * ist, dessen Name mit dem übergegebenen String lm übereinstimmt. Ist dies der Fall wird nur die Menge m aufaddiert. 
-	 * Existiert noch kein Lebensmittel mit dem Namen lm, wird ein neues Lebensmittelobjekt erzeugt, die Menge m diesem 
-	 * Objekt zugewiesen und das Lebensmittel-Objekt in die Lebensmittelliste eingefügt.
-	 * Außerdem wird der Typ eines Lebensmittels gesetzt, sofern ein neues Lebensmittelobjekt erzeugt werden muss.
+	 * Die Methode prüft, ob in der Lebensmittelliste der Lieferantenverwaltung
+	 * bereits ein Lebensmittel vorhanden ist, dessen Name mit dem übergegebenen
+	 * String lm übereinstimmt. Ist dies der Fall wird nur die Menge m
+	 * aufaddiert. Existiert noch kein Lebensmittel mit dem Namen lm, wird ein
+	 * neues Lebensmittelobjekt erzeugt, die Menge m diesem Objekt zugewiesen
+	 * und das Lebensmittel-Objekt in die Lebensmittelliste eingefügt. Außerdem
+	 * wird der Typ eines Lebensmittels gesetzt, sofern ein neues
+	 * Lebensmittelobjekt erzeugt werden muss.
 	 * 
-	 * @param lm Der Name des Lebensmittel
-	 * @param m Die zu berücksichtigende Menge des Lebensmittel  
-	 * @param typ Der Typ des Lebensmittel als standardisierter String. "m" für Meat, "f" für Fisch, "" für vegetarisch.
+	 * @param lm
+	 *            Der Name des Lebensmittel
+	 * @param m
+	 *            Die zu berücksichtigende Menge des Lebensmittel
+	 * @param typ
+	 *            Der Typ des Lebensmittel als standardisierter String. "m" für
+	 *            Meat, "f" für Fisch, "" für vegetarisch.
 	 */
-	
-	private void addLebensmittel(String lm, float m, String typ) {
-		
+	private void addLebensmittel(String lmName, float m, String einh, String typ) {
+		//Wenn lmList leer ist, muss immer ein neues Lebensmittel hinzugefügt werden.
+		if (lmList.isEmpty()){
+			Lebensmittel firstLm = new Lebensmittel();
+			firstLm.setName(lmName);
+			firstLm.setTyp(typ);
+			firstLm.setMenge(m);
+			firstLm.setEinheit(einh);
+			lmList.add(firstLm);
+			//Debug-Print
+			//System.out.println(lmName+" wurde der Liste als Erstes hinzugefügt");
+		}
+		else{
+			//Es sind bereits Elemente in der lmList
+			//Es muss geprüft werden ob ein Objekt gleichen Namens vorhanden ist
+			//Hier wird eine "Iterator-Schleife verwendet
+			Iterator<Lebensmittel> it=lmList.iterator();
+			//Variable für die "Vorhanden"-Prüfung
+			Boolean vorh=false;
+			//Variable für das bereits in der List vorhandene Lebensmittel
+			Lebensmittel vorhLm=new Lebensmittel();
+			//Solang die List noch ein weiteres Element hat, läuft die Schleife
+			while (it.hasNext()){
+				//next() gibt das nächste Lebensmittel-Objekt
+				Lebensmittel lmIt=it.next();
+				//Stimmt der Name des Lebensmittel mit dem zu prüfenden überein
+				//Wenn ja, dass Objekt temporär gespeichert und die Schleife gebrochen.
+				if(lmIt.getName().equals(lmName)){
+					vorh=true;
+					vorhLm=lmIt;
+					//Debug-Print
+					//System.out.println(lmName+" ist in lmList vorhanden");
+					break;
+				}
+				//Stimmt der übergebene Name des Lebensmittels nicht mit dem iterierten überein, bleibt vorh auf false
+				else{
+					vorh=false;
+					//Debug-Print
+					//System.out.println(lmName+" ist noch nicht in lmList vorhanden");
+				}	
+			} //while-Ende - Jetzt steht entweder vorh auf true und vorhLm enthält das LM-Objekt
+			  //oder vorh steht auf false
+			
+			// Lebensmittel-Objekt schon vorhanden
+			if(vorh==true){
+				vorhLm.setMenge(vorhLm.getMenge()+m);
+				//Debug-Print
+				//System.out.println(lmName+"-Menge angepasst");
+			}
+			// Lebensmittel-Objekt noch nicht vorhanden
+			else if(vorh==false){
+				vorhLm.setName(lmName);
+				vorhLm.setTyp(typ);
+				vorhLm.setMenge(m);
+				vorhLm.setEinheit(einh);
+				lmList.add(vorhLm);
+				//Debug-Print
+				//System.out.println(lmName+" der Liste hinzugefügt!");
+			}	
+		} //else-Ende
 	}
 
 }

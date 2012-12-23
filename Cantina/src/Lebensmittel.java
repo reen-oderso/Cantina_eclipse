@@ -15,9 +15,11 @@ public class Lebensmittel
     /** Der Name des Lebensmittels */
     private String name;
     /**Menge der am Markt Verfuegbaren Lebensmittel*/
-    private float marktMenge;
+    private float menge;
     /**Typ (Fleisch,Fisch,Vegatrisch) des Lebensmittels */
     private String typ;
+    /**Einheit der Menge*/
+    private String einheit;
 
     /**
      * Konstruktor für Lebensmittelobjekte
@@ -32,7 +34,7 @@ public class Lebensmittel
      * @param name Der Name des Lebensmittels      
      */
     public void setName (String name){
-
+    	this.name=name;
     }
     /**
      * Gibt den Namen eines Lebensmittels am Markt 
@@ -48,16 +50,16 @@ public class Lebensmittel
      * @param marktMenge Die zu schreibende Marktmenge.
      *        
      */
-    public void setMarktmenge (float marktMenge){
-        
+    public void setMenge (float menge){
+        this.menge=menge;
     }
     /**
      * Gibt die Menge des Lebensmittels am Markt 
      * 
      * @return Lebensmittelmenge am Markt
      */
-    public float getMarktmenge(){
-        return marktMenge;
+    public float getMenge(){
+        return menge;
     }
     /**
      * Setzt den Typ eines Lebensmittels
@@ -66,7 +68,7 @@ public class Lebensmittel
      *        
      */
     public void setTyp(String typ){
-        
+        this.typ=typ;
     }
     /**
      * Gibt den Typ des Lebensmittels am Markt 
@@ -76,4 +78,18 @@ public class Lebensmittel
     public String getTyp(){
         return typ;
     }
+	/**
+	 * Gibt die Einheit der Menge eines Lebensmittels
+	 * @return Einen String der das Einheitenzeichen enthält
+	 */
+	public String getEinheit() {
+		return einheit;
+	}
+	/**
+	 * Setzt die Einheit der Menge des Lebensmittels
+	 * @param einheit Einen String der das Einheitenzeichen enthält
+	 */
+	public void setEinheit(String einheit) {
+		this.einheit = einheit;
+	}
 }
