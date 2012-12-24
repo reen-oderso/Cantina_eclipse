@@ -52,7 +52,8 @@ public class Kantinenplanung
      */
     public static void main(String[] args)
     {
-        //Erzeugen des Application-Objektes
+    	System.out.println(CSVService.getString(CSVService.getFields("1000,\"g\",\"Analogkaese\",,\"2,64\",1000")));
+    	//Erzeugen des Application-Objektes
         Kantinenplanung app = new Kantinenplanung();
         //Erste Parameter lesen
         app.loadProperties();
