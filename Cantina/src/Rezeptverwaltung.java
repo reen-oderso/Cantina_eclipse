@@ -13,15 +13,12 @@ import java.util.ArrayList;
  */
 public class Rezeptverwaltung
 {
-    /** Die ArrayList Rezeptliste enthält die Referenz zu allen erzeugten Rezeptobjekten, ist also eine Rezeptliste*/
-    private ArrayList<Rezept> rezeptListe;    
-    /** Die Lieferantenverwaltung wird der Rezeptverwaltung übergeben und wird als Objekt übergeben*/
-    private Lieferantenverwaltung lieferantenverw;
     /** Angabe des Rezeptpfades */
     private String rezeptPfad;
-    /** Angabe des Hitlistenpfades */
-    private String hitlistenPfad;
+    /**Rezeptname*/
     private String rezeptName;
+    
+    private ArrayList<Rezept> rezeptListe;
 
     /** Bereits bei der Konstruktion muss eine Referenz zur Lieferantenverwaltung übergeben werden, da diese zur Typprüfung benötigt wird.
      * 
@@ -29,9 +26,18 @@ public class Rezeptverwaltung
      */
     public Rezeptverwaltung() //parameter entfernt zum testen (Lieferantenverwaltung lieferantenverw)
     {
-     
+     rezeptListe = new ArrayList<Rezept>();
     }
 
+    /**
+     * Rezepte in Rezeptliste aufnehmen
+     * 
+     * @param: rezept Rezept auf Rezeptliste
+     */
+    public void addRezept (Rezept rezept){
+    	rezeptListe.add (rezept);
+    }
+    
     /**
      * Die Methode liest die Rezeptdatei ein, erstellt Rezeptobjekte und Zutatenobjekte daraus und weist die Zutaten den Rezepten zu. Dann werden die Rezepte in den RezeptArrayList gelegt.
      * 
@@ -74,7 +80,7 @@ public class Rezeptverwaltung
 				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
 			
 			// bei Zeilenanfang	
-			if(zeilennummer == 0){
+			if( zeile != null){
 				
 				// prüfe ob die eingelesene Zeile dem aktuellen Rezept entspricht
 				if ( !fields.get(0).equals(rezeptName)) {
@@ -89,11 +95,12 @@ public class Rezeptverwaltung
 					rezept.setName(fields.get(0).toString());
 					
 					//Rezept in Rezeptliste aufnehmen
-					//rezeptListe.add(rezept);
+					rezeptListe.add(rezept);
 					
 					//Debug Print
 					System.out.println(rezept.getName());
 				}
+				
 				
 				
 			}
@@ -123,7 +130,8 @@ public class Rezeptverwaltung
      */
     public boolean liesHitliste(String hitlistenPfad) //
     {
-        return true;
+        
+    	return true;
     }
     
     /**
