@@ -21,6 +21,7 @@ public class Rezeptverwaltung
     private String rezeptPfad;
     /** Angabe des Hitlistenpfades */
     private String hitlistenPfad;
+    private String rezeptName;
 
     /** Bereits bei der Konstruktion muss eine Referenz zur Lieferantenverwaltung übergeben werden, da diese zur Typprüfung benötigt wird.
      * 
@@ -72,10 +73,25 @@ public class Rezeptverwaltung
 				//Debug-Print
 				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
 			
+			// bei Zeilenanfang	
 			if(zeilennummer == 0){
-				Rezept rezept = new Rezept(fields.get(0));
-				rezept.setName(fields.get(0).toString());
-				System.out.println(rezept.getName());
+				
+				// prüfe ob die eingelesene Zeile dem aktuellen Rezept entspricht
+				if ( !fields.get(0).equals(rezeptName)) {
+					
+					//uebergebe den rezeptnamen aus dem Feld 0 
+					rezeptName = fields.get(0).toString();
+					
+					// erzeuge ein neues Objekt Rezept mit dem rezeptnamen
+					Rezept rezept = new Rezept(rezeptName);
+					
+					// Setze den Rezeptnamen
+					rezept.setName(fields.get(0).toString());
+					//Debug Print
+					System.out.println(rezept.getName());
+				}
+				
+				
 			}
         			
         			
