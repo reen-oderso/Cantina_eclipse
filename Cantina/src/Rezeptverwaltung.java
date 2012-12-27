@@ -87,6 +87,10 @@ public class Rezeptverwaltung
 					
 					// Setze den Rezeptnamen
 					rezept.setName(fields.get(0).toString());
+					
+					//Rezept in Rezeptliste aufnehmen
+					//rezeptListe.add(rezept);
+					
 					//Debug Print
 					System.out.println(rezept.getName());
 				}
