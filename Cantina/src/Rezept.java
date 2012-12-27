@@ -30,6 +30,7 @@ public class Rezept
     public Rezept(String name)
     {
     	this.name =name;
+    	zutaten = new ArrayList<Zutat>();
     }
     
      /**
@@ -55,8 +56,8 @@ public class Rezept
      * 
      * @param zutaten ArrayList für die Zutaten
      */
-    public void addZutat(Zutat zutaten){
-        
+    public void addZutat(Zutat zutat){
+    	zutaten.add(zutat);
     }
     
     /**

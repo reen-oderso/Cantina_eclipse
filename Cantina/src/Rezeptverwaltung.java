@@ -91,6 +91,11 @@ public class Rezeptverwaltung
 					// erzeuge ein neues Objekt Rezept mit dem rezeptnamen
 					Rezept rezept = new Rezept(rezeptName);
 					
+					
+					//Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
+					///rezept.addZutat( zutat );
+					//System.out.println(" Zutat: "+fields.get(3).toString());
+					
 					// Setze den Rezeptnamen
 					rezept.setName(fields.get(0).toString());
 					
@@ -99,8 +104,11 @@ public class Rezeptverwaltung
 					
 					//Debug Print
 					System.out.println(rezept.getName());
+					
+					
 				}
 				
+
 				
 				
 			}
