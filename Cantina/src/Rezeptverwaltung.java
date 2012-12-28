@@ -45,92 +45,84 @@ public class Rezeptverwaltung
      * @param   rezeptpfad Den Pfad zur Rezeptdatei.
      * @return  Gibt True zurück, wenn die Rezepte vollständig eingelesen wurden. Gibt False zurück, falls Fehler aufgetreten sind.   
      */
-//    public boolean liesRezepte(String rezeptpfad) 
-//    {
-//    	//Datei öffnen
-//		Datei inFile = new Datei(rezeptpfad);
-//		inFile.openInFile_FS();
-//		
-//        
-//		// Abfrage, ob das Oeffen funktioniert hat
-//        if (!inFile.state()){
-//            // Ausgabe des Fehlers im Terminalfenster
-//            System.out.println("Fehler beim öffnen der Eingabedatei "+rezeptPfad);
-//            // Abbrechen der Methode
-//            return false;
-//        }
-//
-//        //Rezept initialisieren
-//        Rezept rezept = null;
-//        
-//        //Datei-Schleife
-//        while (!inFile.eof()){
-//        	
-//            // Zeile einer Datei einlesen
-//        	String zeile = inFile.readLine_FS();
-//        	//Debug-Print
-//        	//System.out.println(zeile);
-//        	
-//   	
-//        	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
-//        	if (zeile != null){
-//        		
-//        		//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
-//				ArrayList<String> fields = CSVService.getFields(zeile);
-//				
-//				//Debug-Print
-//				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
-//			
-//			
-//			
-//				
-//				// prüfe ob die eingelesene Zeile dem aktuellen Rezept entspricht
-//				if ( !fields.get(0).equals(rezeptName)) {
-//					
-//					//uebergebe den rezeptnamen aus dem Feld 0 
-//					rezeptName = fields.get(0).toString();
-//					
-//					// erzeuge ein neues Objekt Rezept mit dem rezeptnamen
-//					rezept = new Rezept(rezeptName);
-//					
-//										
-//					// Setze den Rezeptnamen
-//					rezept.setName(fields.get(0).toString());
-//					
-//					
-//					//Rezept in Rezeptliste aufnehmen
-//					rezeptListe.add(rezept);
-//					
-//					//Debug Print
-//					System.out.println(rezept.getName());
-//					
-//					
-//				}
-//				
-//					// Zutatenobjekt erzeugen
-//					Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
-//					// Zutat einem Rezept hinterlegen
-//					rezept.addZutat( zutat );
-//					// Debug Print
-//					System.out.println(" Zutat: "+fields.get(3).toString());
-//					
-//				
-//			  
-//        	}
-//        }
-//        return true;
-//        }
-//       
+    public boolean liesRezepte(String rezeptpfad) 
+    {
+    	//Datei öffnen
+		Datei inFile = new Datei(rezeptpfad);
+		inFile.openInFile_FS();
+		
         
-        
-      
-        		
-    
+		// Abfrage, ob das Oeffen funktioniert hat
+        if (!inFile.state()){
+            // Ausgabe des Fehlers im Terminalfenster
+            System.out.println("Fehler beim öffnen der Eingabedatei "+rezeptPfad);
+            // Abbrechen der Methode
+            return false;
+        }
 
-       	   
-    
-    
-    /**
+        //Rezept initialisieren
+        Rezept rezept = null;
+        
+        //Datei-Schleife
+        while (!inFile.eof()){
+        	
+            // Zeile einer Datei einlesen
+        	String zeile = inFile.readLine_FS();
+        	//Debug-Print
+        	//System.out.println(zeile);
+        	
+   	
+        	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
+        	if (zeile != null){
+        		
+        		//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
+				ArrayList<String> fields = CSVService.getFields(zeile);
+				
+				//Debug-Print
+				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
+			
+			
+			
+				
+				// prüfe ob die eingelesene Zeile dem aktuellen Rezept entspricht
+				if ( !fields.get(0).equals(rezeptName)) {
+					
+					//uebergebe der Variable rezeptNamen den Strin aus dem Feld 0 
+					rezeptName = fields.get(0).toString();
+					
+					// erzeuge ein neues Objekt Rezept mit rezeptName als zu übergebenden Parameter
+					rezept = new Rezept(rezeptName);
+					
+										
+					// Setze den Rezeptnamen -> nicht mehr benötigt, da schon als Parameter übergeben
+					//rezept.setName(fields.get(0).toString()); 
+					
+					
+					//Rezept in Rezeptliste aufnehmen
+					rezeptListe.add(rezept);
+					
+					//Debug Print
+					System.out.println(rezeptName);
+					
+					
+				}
+				
+					// Zutatenobjekt erzeugen
+					Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
+					// Zutat zu einem Rezept hinterlegen
+					rezept.addZutat( zutat );
+					// Debug Print
+					System.out.println(" Zutat: "+fields.get(3).toString());
+					
+				
+			  
+        	}
+        }
+        return true;
+        }
+       
+        
+        /**
      * Die Methode liest die Hitlistendatei ein und weist den im RezeptArrayList enthaltenen Rezeptobjekten ihre Hitlistenposition zu.
      * 
      * @param hitlistenpfad Den Pfad zur Hitlistendatei  
@@ -151,16 +143,20 @@ public class Rezeptverwaltung
     	            return false;
     	        }
     	            //int zeilennummer = 0;
+    	        
+    	             Rezept rezeptName = null;
     	             
     	            //Datei-Schleife
     	            while (!inFile.eof()){
+    	            	
     	            	//zeilennummer++;
+    	            	
     	                // Zeile einer Datei einlesen
     	            	String zeile = inFile.readLine_FS();
+    	            	
     	            	//Debug-Print
     	            	//System.out.println(zeile);
     	            	
-    	       	
     	            	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
     	            	if (zeile != null){
     	            		
@@ -170,14 +166,43 @@ public class Rezeptverwaltung
     	    				//Debug-Print
     	    				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1));
     	        
-    	    				if ((rezeptListe.contains(rezeptName)) && name.equals(fields.get(1))){
-    	    					rezept.setHitlistenpos(fields.get(0).toString());
-    	    				}
-    	            }
-    	        }
-    	           
-    	return true;
+
+    				// Suche Rezept, dessen Name in der Hitliste eingelesen wurde
+    				rezeptName = getRezeptWithName( fields.get(1).toString() );
+    				
+    				// Prüfe ob die eingelesene Zeile noch dem aktuellen Rezept entspricht
+    				if ( rezeptName != null) {
+    					// speichere aktuellen Rezeptname, da dieser ja für jede Zutat wiederholt wird
+    					rezeptName.setHitlistenpos( fields.get(0) );
+    					
+    					// Debug Print
+    					System.out.println("Rezept: "+rezeptName.getName()+" Position: "+fields.get(0));
+    				} else
+    					//Debug Print
+    					System.out.println("Rezept: "+fields.get(1)+" nicht gefunden.");
+    				    				
+            	}
+            }
+            return true;
+
     }
+        /** Prüfen, ob der Rezeptname bereits in der Rezeptliste enhalten ist
+         * 
+         * @param rezeptName Name eines Rezeptes
+         * 
+         * @return null
+         */
+        public Rezept getRezeptWithName( String rezeptName ) {
+        	// Für ein Rezeptelement aus der Liste
+        	for(Rezept rezeptElement : rezeptListe ) {
+        		// Ist der Name des Rezeptes aus der rezeptListe identisch mit dem rezeptNamen
+        		if(rezeptElement.getName().equals(rezeptName))
+        			// gebe das rezeptElement aus
+        			return rezeptElement;
+        	}
+        	
+        	return null;
+         }
     
     /**
      * Die Methode gibt ein zufälliges Fischrezept aus dem RezeptArrayList zurück.
