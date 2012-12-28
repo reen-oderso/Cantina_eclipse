@@ -24,7 +24,7 @@ public class Tagesgericht
      */
     public Tagesgericht(Rezept rezept)
     {
-        
+        this.rezept = rezept;
     }
     
     /**

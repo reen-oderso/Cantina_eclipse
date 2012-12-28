@@ -31,6 +31,7 @@ public class Rezept
     {
     	this.name =name;
     	zutaten = new ArrayList<Zutat>();
+    	hitlistPos = 0;
     }
     
      /**
@@ -92,8 +93,9 @@ public class Rezept
      * 
      * @param hitlistenposition Postion eines Rezeptes auf der Hitliste
      */
-    public void setHitlistenpos (int hitlistPos){
-        
+    public void setHitlistenpos ( String hitlistPosStr) {
+           hitlistPos = Integer.valueOf( hitlistPosStr );
+
     }
     
     /**

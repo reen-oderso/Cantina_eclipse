@@ -100,7 +100,9 @@ public class Kantinenplanung
     	lieferantenverw.readLiefFolder(preisListenOrdner);
     	
     	rezeptverw  = new Rezeptverwaltung(lieferantenverw); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
-    	rezeptverw.liesRezepte(rezeptPfad);
+    	//rezeptverw.liesRezepte(rezeptPfad);
+    	rezeptverw.liesHitliste(hitListenPfad);
+    	
     	        
     }
     
