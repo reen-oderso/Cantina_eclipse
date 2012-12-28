@@ -59,19 +59,20 @@ public class Rezeptverwaltung
             return false;
         }
 
+        //Rezept initialisieren
+        Rezept rezept = null;
+        
         //Datei-Schleife
         while (!inFile.eof()){
         	
-        	//Zeilenzähler erhöhen
-        	zeilennummer = zeilennummer++; 
-        	// Zeile einer Datei einlesen
+            // Zeile einer Datei einlesen
         	String zeile = inFile.readLine_FS();
         	//Debug-Print
         	//System.out.println(zeile);
         	
    	
         	//Wenn aktuelle Zeile einen NullPointer enthält, wird gebrochen. 
-        	if (!(zeile==null)){
+        	if (zeile != null){
         		
         		//Der CSVService macht aus den Eingabe-String (Zeile aus Datei) eine ArrayList, die die einzelnen Werte getrennt enthält
 				ArrayList<String> fields = CSVService.getFields(zeile);
@@ -79,8 +80,8 @@ public class Rezeptverwaltung
 				//Debug-Print
 				//System.out.println("Zeile: "+zeilennummer+" Wert1: "+fields.get(0)+" Wert2: "+fields.get(1)+" Wert3: "+fields.get(2)+" Wert 4: " +fields.get(3));
 			
-			// bei Zeilenanfang	
-			if( zeile != null){
+			
+			
 				
 				// prüfe ob die eingelesene Zeile dem aktuellen Rezept entspricht
 				if ( !fields.get(0).equals(rezeptName)) {
@@ -89,15 +90,12 @@ public class Rezeptverwaltung
 					rezeptName = fields.get(0).toString();
 					
 					// erzeuge ein neues Objekt Rezept mit dem rezeptnamen
-					Rezept rezept = new Rezept(rezeptName);
+					rezept = new Rezept(rezeptName);
 					
-					
-					//Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
-					///rezept.addZutat( zutat );
-					//System.out.println(" Zutat: "+fields.get(3).toString());
-					
+										
 					// Setze den Rezeptnamen
 					rezept.setName(fields.get(0).toString());
+					
 					
 					//Rezept in Rezeptliste aufnehmen
 					rezeptListe.add(rezept);
@@ -108,14 +106,13 @@ public class Rezeptverwaltung
 					
 				}
 				
-
 				
+					Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
+					rezept.addZutat( zutat );
+					System.out.println(" Zutat: "+fields.get(3).toString());
+					
 				
-			}
-        			
-        			
-        		
-        		
+			  
         	}
         }
         return true;
