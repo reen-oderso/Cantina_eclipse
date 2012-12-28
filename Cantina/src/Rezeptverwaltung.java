@@ -24,7 +24,7 @@ public class Rezeptverwaltung
      * 
      * @param lieferantenverw Die zur Typprüfung zu verwendende Lieferantenverwaltung
      */
-    public Rezeptverwaltung() //parameter entfernt zum testen (Lieferantenverwaltung lieferantenverw)
+    public Rezeptverwaltung(Lieferantenverwaltung lieferenatenverw) //parameter entfernt zum testen (Lieferantenverwaltung lieferantenverw)
     {
      rezeptListe = new ArrayList<Rezept>();
     }
@@ -49,7 +49,7 @@ public class Rezeptverwaltung
     	//Datei öffnen
 		Datei inFile = new Datei(rezeptpfad);
 		inFile.openInFile_FS();
-		int zeilennummer = 0;
+		
         
 		// Abfrage, ob das Oeffen funktioniert hat
         if (!inFile.state()){
@@ -106,9 +106,11 @@ public class Rezeptverwaltung
 					
 				}
 				
-				
+					// Zutatenobjekt erzeugen
 					Zutat zutat = new Zutat(fields.get(3).toString(), Float.valueOf(fields.get(1).toString().replace(",", ".")), fields.get(2).toString());
+					// Zutat einem Rezept hinterlegen
 					rezept.addZutat( zutat );
+					// Debug Print
 					System.out.println(" Zutat: "+fields.get(3).toString());
 					
 				

@@ -99,7 +99,7 @@ public class Kantinenplanung
     	lieferantenverw=new Lieferantenverwaltung();
     	lieferantenverw.readLiefFolder(preisListenOrdner);
     	
-    	rezeptverw  = new Rezeptverwaltung(); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
+    	rezeptverw  = new Rezeptverwaltung(lieferantenverw); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
     	rezeptverw.liesRezepte(rezeptPfad);
     	        
     }
