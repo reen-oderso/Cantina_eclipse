@@ -44,7 +44,7 @@ public abstract class Lieferant
      * @param  artikelName Name der zu prüfenden Zutat
      * @return      true wenn Artikel vorhanden  
      */
-    public boolean enthältArtikel(String artikelName)
+    public boolean enthaeltArtikel(String artikelName)
     {
         return true;
     }
