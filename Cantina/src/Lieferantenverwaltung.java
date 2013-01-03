@@ -44,8 +44,8 @@ public class Lieferantenverwaltung {
 	 *            Die zu prüfende Zutat
 	 * @return Einen standardisierten String, der die Typ-Bezeichnung enthält.
 	 */
-	public String holeTyp(Zutat zutat) {
-		String typ = "";
+	public RezeptTyp holeTyp(Zutat zutat){
+		String typ = null;
 		Iterator<Lebensmittel> it = lmList.iterator();
 		while (it.hasNext()){
 			Lebensmittel lm=it.next();
@@ -54,8 +54,27 @@ public class Lieferantenverwaltung {
 				break;
 			}
 		}
-		return typ;
+		if (typ == null)
+			return RezeptTyp.Veggie;
+		else if (typ.equals("m"))
+			return RezeptTyp.Fleisch;
+		else if (typ.equals("f"))
+			return RezeptTyp.Fisch;
+		else
+			return RezeptTyp.Veggie;
 	}
+//	public String holeTyp(Zutat zutat) {
+//		String typ = "";
+//		Iterator<Lebensmittel> it = lmList.iterator();
+//		while (it.hasNext()){
+//			Lebensmittel lm=it.next();
+//			if (lm.getName().equals(zutat.getName())){
+//				typ=lm.getTyp();
+//				break;
+//			}
+//		}
+//		return typ;
+//	}
 
 	/**
 	 * Die Methode prüft, ob die benötigten Mengen Lebensmittel am Markt

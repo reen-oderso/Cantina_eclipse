@@ -101,7 +101,7 @@ public class Kantinenplanung
     	
     	rezeptverw  = new Rezeptverwaltung(lieferantenverw); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
     	rezeptverw.liesRezepte(rezeptPfad);
-    	rezeptverw.liesHitliste(hitListenPfad);
+    	//rezeptverw.liesHitliste(hitListenPfad);
     	
     	        
     }

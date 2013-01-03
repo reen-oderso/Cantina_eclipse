@@ -9,6 +9,8 @@ import java.util.*; // Importiert die Klasse ArrayList
  * @author Lukas Krotki 
  * @version
  */
+enum RezeptTyp {Fleisch, Fisch, Veggie};
+
 public class Rezept 
 {
     /** Die ArrayList enthält alle Zutatenobjekte des Rezeptes */
@@ -20,7 +22,7 @@ public class Rezept
     /** Die Hitlistenposition des Rezeptes */
     private int hitlistPos;
     /** Der Typ des Rezeptes (Fleisch, Fisch, Veggie) */
-    private String typ;
+    private RezeptTyp typ;
     
     /**
      * Konstruktor für Objekte der Klasse Rezept
@@ -112,8 +114,23 @@ public class Rezept
      * 
      * @param typ Typ des Rezeptes (Fleisch, Fisch, Vegie)
      */
-    public void setTyp (String typ){
-        
+     public void setRezeptTyp (Lieferantenverwaltung lieferantenVerw){
+    	RezeptTyp zutatTyp;
+    			// Alten Wert ueberschreiben und neuen Typ aufgrund der jetzigen Zutaten ermitteln
+    			typ = null;
+    			
+    			for( Zutat zutat : zutaten ) {
+    				zutatTyp = lieferantenVerw.holeTyp(zutat);
+    				if (zutatTyp != RezeptTyp.Veggie)  {
+    					typ = zutatTyp;
+    					
+    	  				//Debug Print
+    					System.out.println(" # RezeptTyp: "+zutatTyp);
+    	    						
+    					break;
+    				}
+    			}
+    		
     }
     
     /**
@@ -121,7 +138,7 @@ public class Rezept
      * 
      * @return Der Typ des Rezeptes
      */
-    public String getTyp(){
+     public RezeptTyp getTyp(){
         return typ;
     }
 }
