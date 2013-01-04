@@ -52,7 +52,6 @@ public class Kantinenplanung
      */
     public static void main(String[] args)
     {
-    	System.out.println(CSVService.getString(CSVService.getFields("1000,\"g\",\"Analogkaese\",,\"2,64\",1000")));
     	//Erzeugen des Application-Objektes
         Kantinenplanung app = new Kantinenplanung();
         //Erste Parameter lesen
@@ -79,11 +78,11 @@ public class Kantinenplanung
             hitListenPfad =properties.getProperty("HitlistenPfad");
             preisListenOrdner =properties.getProperty("PreislistenOrdner");
 
-            /* Debug-Print*/
+            /* Debug-Print
             System.out.println("Anzahl der Kantinen: "+anzKantinen);
             System.out.println("Pfad zur Rezept-Datei: "+rezeptPfad);
             System.out.println("Pfad zur Hitlisten-Datei: "+hitListenPfad);
-            System.out.println("Pfad zum Lieferanten-Ordner: "+preisListenOrdner);
+            System.out.println("Pfad zum Lieferanten-Ordner: "+preisListenOrdner);*/
         }
         catch (IOException e){
             System.out.println(e.toString());
@@ -101,9 +100,7 @@ public class Kantinenplanung
     	
     	rezeptverw  = new Rezeptverwaltung(lieferantenverw); // Übergabe der Lieferantenverwaltung derzeit im Konstruktor bei Rezeptverwaltung 
     	rezeptverw.liesRezepte(rezeptPfad);
-    	//rezeptverw.liesHitliste(hitListenPfad);
-    	
-    	        
+    	rezeptverw.liesHitliste(hitListenPfad);  	        
     }
     
     /**
@@ -111,7 +108,9 @@ public class Kantinenplanung
      * Die Parameter wurden bereits vorher aus der config.properties extrahiert.
      */
     public void startKantinenplanung(){
-        
+        System.out.println(rezeptverw.gibFisch().getName());
+        System.out.println(rezeptverw.gibFleisch().getName());
+        System.out.println(rezeptverw.gibVeggie().getName());
     }
     
     /**

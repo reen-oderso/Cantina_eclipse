@@ -125,7 +125,7 @@ public class Rezept
     					typ = zutatTyp;
     					
     	  				//Debug Print
-    					System.out.println(" # RezeptTyp: "+zutatTyp);
+    					//System.out.println(" # RezeptTyp: "+zutatTyp);
     	    						
     					break;
     				}

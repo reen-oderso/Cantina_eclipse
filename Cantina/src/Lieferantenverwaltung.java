@@ -106,9 +106,9 @@ public class Lieferantenverwaltung {
 	 */
 	public boolean readLiefFolder(String lieferantenOrdner) {
 		File folder = new File(lieferantenOrdner);
-		// Debug-Print
+		/* Debug-Print
 		System.out.println("Angegebener Lieferantenordner ist ein Ordner: "
-				+ folder.isDirectory());
+				+ folder.isDirectory());	*/
 
 		String[] fileList = folder.list();
 		if (folder.isDirectory()) {
