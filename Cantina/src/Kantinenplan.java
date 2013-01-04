@@ -34,7 +34,11 @@ public class Kantinenplan
      */
     public Kantinenplan(String name, int anzMA)
     {
-
+    	this.standort=name;
+    	this.anzMitarbeiter=anzMA;
+    	
+    	//Debug-Print
+    	System.out.println("Die Kantine "+standort+" mit "+anzMitarbeiter+" Mitarbeitern wurde erzeugt.");
     }
 
     /**
@@ -48,6 +52,12 @@ public class Kantinenplan
      */
     public boolean erzeugePlan(Lieferantenverwaltung lieferantenverw, Rezeptverwaltung rezeptverw)
     {
+        this.lieferantenverw=lieferantenverw;
+        this.rezeptverw=rezeptverw;
+    	
+    	
+        
+        
         /*
         * Für eine Woche, das ganze wird dann 2x wiederholt:
         * Von der Rezeptverwaltung werden 5 Fleischgericht-Rezepte und 5 vegetarische Rezepte angefordert, dann ein 

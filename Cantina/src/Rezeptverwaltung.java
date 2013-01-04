@@ -1,4 +1,3 @@
-import java.io.*; // Aufgrund des Einlesens der Datei
 import java.util.ArrayList;
 /**
  * Die Rezeptverwaltung erstellt aus der Rezeptdatei die Objektabbildungen der Rezepte und 
