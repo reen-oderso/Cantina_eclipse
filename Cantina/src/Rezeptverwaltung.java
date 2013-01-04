@@ -23,7 +23,7 @@ public class Rezeptverwaltung
      * 
      * @param lieferantenverw Die zur Typprüfung zu verwendende Lieferantenverwaltung
      */ 
-    public Rezeptverwaltung(Lieferantenverwaltung liefVerw) //parameter entfernt zum testen (Lieferantenverwaltung lieferantenverw)
+    public Rezeptverwaltung(Lieferantenverwaltung liefVerw)
     {
      lieferantenVerw = liefVerw;
      rezeptListe = new ArrayList<Rezept>();
@@ -244,8 +244,11 @@ public class Rezeptverwaltung
      */
     public Rezept gibFisch() 
     {
+    	//Erzeugt eine zufällige Ganzzahl 0<=x<Elemente in der Rezeptliste
     	int rnd=new Double(Math.random() * rezeptListe.size()).intValue();
+    	//Holt das entsprechende Rezept aus der Liste
     	Rezept rzp = rezeptListe.get(rnd);
+    	//Solang es kein Fischrezept ist, werden weitere Rezepte aufgerufen
     	while (rzp.getTyp() != RezeptTyp.Fisch){
         	rnd=new Double(Math.random() * rezeptListe.size()).intValue();
         	rzp = rezeptListe.get(rnd);
@@ -260,6 +263,7 @@ public class Rezeptverwaltung
      */
     public Rezept gibFleisch() 
     {
+    	//siehe gibFisch
     	int rnd=new Double(Math.random() * rezeptListe.size()).intValue();
     	Rezept rzp = rezeptListe.get(rnd);
     	while (rzp.getTyp() != RezeptTyp.Fleisch){
@@ -276,6 +280,7 @@ public class Rezeptverwaltung
      */
     public Rezept gibVeggie() 
     {
+    	//siehe gibFisch
     	int rnd=new Double(Math.random() * rezeptListe.size()).intValue();
     	Rezept rzp = rezeptListe.get(rnd);
     	while (rzp.getTyp() != null){
@@ -292,6 +297,7 @@ public class Rezeptverwaltung
      */
     public Rezept gibRandom() 
     {
+    	//siehe gibFisch. Hier ohne Schleife, da ein vollkommen zufälliges Rezept ausreicht, ist keine Typ-Prüfung nötig
     	int rnd = new Double(Math.random() * rezeptListe.size()).intValue();
     	Rezept rzp = rezeptListe.get(rnd);
         return rzp;

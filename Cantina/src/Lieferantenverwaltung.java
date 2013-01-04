@@ -63,18 +63,6 @@ public class Lieferantenverwaltung {
 		else
 			return RezeptTyp.Veggie;
 	}
-//	public String holeTyp(Zutat zutat) {
-//		String typ = "";
-//		Iterator<Lebensmittel> it = lmList.iterator();
-//		while (it.hasNext()){
-//			Lebensmittel lm=it.next();
-//			if (lm.getName().equals(zutat.getName())){
-//				typ=lm.getTyp();
-//				break;
-//			}
-//		}
-//		return typ;
-//	}
 
 	/**
 	 * Die Methode prüft, ob die benötigten Mengen Lebensmittel am Markt
@@ -90,7 +78,50 @@ public class Lieferantenverwaltung {
 	 */
 
 	public boolean lebensmittelVerfuegbar(Tagesgericht tagesgericht) {
-		return true;
+		ArrayList<Zutat> zutatList= tagesgericht.getRezept().getZutaten();
+		int c=0; //Zähler für die verfügbaren Lebensmittel
+		
+		//Zutatenschleife
+		for (int i=0;i<zutatList.size();i++){
+			Zutat z=zutatList.get(i);
+			//Lebensmittelschleife
+			for (Lebensmittel lm : lmList){
+				if (lm.getName().equals(z.getName())) {
+					// Differenz zwischen verfügbaren Lebensmitteln und benötigter Zutatmenge
+					float diff=(lm.getMenge()-(z.getMenge()*tagesgericht.getAbsatzMenge()));
+					//Verfügbare Restmenge des Lebensmittels ist kleiner 0, Verfügbar: false
+					if (diff<0){
+						//Debug-Print
+						System.out.println("Die Menge an "+z.getName()+" für "+tagesgericht.getRezept().getName()+" reicht nicht aus");
+						return false;
+					}
+					//Die Restmenge ist größer als 0
+					else if (diff>=0){
+						c++; //Lebensmittel verfügbar, Zähler erhöhen
+					}
+				}
+			} //Ende Lebensmittelschleife
+		} // Ende Zutatenschleife
+		
+		if (c==zutatList.size()){
+			//Es sind alle Lebensmittel ausreichend verfügbar.
+			for (int i=0;i<zutatList.size();i++){
+				Zutat z=zutatList.get(i);
+				//Lebensmittelschleife
+				for (Lebensmittel lm : lmList){
+					if (lm.getName().equals(z.getName())){
+						lm.setMenge(lm.getMenge()-(z.getMenge()*tagesgericht.getAbsatzMenge()));
+						//Debug-Print
+						//System.out.println("Menge von "+lm.getName()+" auf "+lm.getMenge()+" angepasst");
+					}
+				} //Ende Lebensmittelschleife
+			} // Ende Zutatenschleife
+			return true;
+		}
+		//falls ein Lebensmittel garnicht verfügbar ist, ist c<>Anzahl der Zutaten. Es wird false zurückgegeben.
+		else {
+			return false;
+		}
 	}
 
 	/**
@@ -119,7 +150,7 @@ public class Lieferantenverwaltung {
 					// Debug-Print
 					System.out.println("Die Datei " + fileList[i]
 							+ " wurde erfolgreich eingelesen");
-				}
+				} 
 			}
 
 			/*// Debug-Print aus der Artikelliste
@@ -166,7 +197,7 @@ public class Lieferantenverwaltung {
 		// Abfrage, ob das Oeffen funktioniert hat
 		if (!inFile.state()) {
 			// Ausgabe des Fehlers im Terminalfenster
-			System.out.println("Fehler beim Öffnen der Eingabedatei " + in);
+			System.out.println("Es ist ein Fehler beim Öffnen der Datei "+in+" aufgetreten");
 			// Abbrechen der Methode
 			return false;
 		}

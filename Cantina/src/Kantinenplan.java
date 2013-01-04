@@ -54,7 +54,73 @@ public class Kantinenplan
     {
         this.lieferantenverw=lieferantenverw;
         this.rezeptverw=rezeptverw;
-    	
+
+        /*Week 1 */
+        
+        // Fischrezept-Zähler
+    	int fishCnt=0;
+    	// Anzahl der Öffnungstage pro Woche
+    	int tageProWoche =5;
+    	Rezept[] tmpMeatArr=new Rezept[tageProWoche];	//enthält die 5 Fleischrezepte, die pro Woche mindestens angeboten werden sollen
+        Rezept[] tmpVeggieArr=new Rezept[tageProWoche]; //enthält die 5 vegetarischen Rezepte, die pro Woche mindestens angeboten werden sollen
+        Rezept[] tmpRndArr=new Rezept[tageProWoche];	//enthält 5 zufällige Rezepte, die pro Woche mindestens angeboten werden sollen, wobei min. eines ein Fischgericht sein muss.
+
+        // temporären Wochen-Plan erzeugen
+        for (int i=0; i<tageProWoche;i++){
+        	tmpMeatArr[i]=rezeptverw.gibFleisch();
+           	tmpVeggieArr[i]=rezeptverw.gibVeggie();
+        	tmpRndArr[i]=rezeptverw.gibRandom();
+
+        	//Wenn das Zufallsrezept ein Fischrezept ist, wird der Zähler erhöht.
+        	if(tmpRndArr[i].getTyp()==RezeptTyp.Fisch){
+        		fishCnt++;
+        		
+        		//Debug-Print
+        		//System.out.println("ist Fisch Nr. "+fishCnt);
+        		
+        		//Sollte der Zähler größer als 2 sein (das Zufallsgericht also das 3. Fischgericht in der Woche), wird der Schleifenzähler um 1 verringert.
+        		//Im nächsten Schleifen-Lauf wird dann um eins erhöht, also der selbe Tag nochmals angestoßen. Dies geschieht so oft, bis ein 
+        		//Nicht-Fischgericht vorgeschlagen wird.
+        		if (fishCnt>2){
+        			
+        			//Debug-Print
+        			//System.out.println("mehr als 2 Fischgerichte");
+        			
+        			i--;
+        		}
+        	}
+        	/*Sollte beim letzten Durchlauf (der 5.) der Zufall nicht für mindestens ein Fischgericht gesorgt haben (Zähler also = 0), dann
+        	wird explizit ein Fischgericht aufgerufen. Das sorgt natürlich dafür, dass die Wahrscheinlichkeit, dass es christlich-traditionell 
+        	am Freitag Fisch gibt, recht hoch ist. Dies kann hier aber auch auf einen anderen Tag gelegt werden, denn letztlich ist es egal, 
+        	welcher Tag überschrieben wird. */
+    		if (i==4 && fishCnt==0){
+    			tmpRndArr[i]=rezeptverw.gibFisch();
+    			
+    			//Debug-Print
+    			//System.out.println("Immernoch kein Fischgericht. Ersetze mit "+tmpRndArr[i].getName());
+    		}
+        }
+        // Verfügbarkeits-Prüfung
+        Tagesgericht tg= new Tagesgericht(tmpRndArr[0]);
+        tg.setMenge(250);
+        
+        if (lieferantenverw.lebensmittelVerfuegbar(tg)==false){
+        	return false;
+        }
+        
+        
+        
+        
+        
+        
+        
+        /*Debug-Print 
+        for (int i=0;i<5;i++){
+        	System.out.println("Tag "+(i+1)+": "+tmpMeatArr[i].getName());
+        	System.out.println("Tag "+(i+1)+": "+tmpVeggieArr[i].getName());
+        	System.out.println("Tag "+(i+1)+": "+tmpRndArr[i].getName());
+        } */
+        
     	
         
         
@@ -63,8 +129,7 @@ public class Kantinenplan
         * Von der Rezeptverwaltung werden 5 Fleischgericht-Rezepte und 5 vegetarische Rezepte angefordert, dann ein 
         * Fischgericht, die restlichen 4 mit zufälligen Rezepten aufgefüllt. Die 4 Teile werden in temporären Arrays hinterlegt.
         * Nun werden alle Rezepte auf ihre Verfügbarkeit bei der Lieferantenverwaltung geprüft. Falls etwas nicht verfügbar ist,
-        * muss neu angefordert und im temporären Array ersetzt werden.  Vll. sollte man auch sicherstellen, dass nicht zu viele 
-        * Fischgerichte über das Zufallsrezept reinkommen.
+        * muss neu angefordert und im temporären Array ersetzt werden.  
         * Dann werden die Tagesgerichtobjekte daraus erstellt. Als Datum wird 1-5 gesetzt, das Fischgericht bekommt immer
         * die 5 (bzw. 10 oder 15 für die 2. und 3. Woche). 
         * Für die Tagesgerichte mit gleichem Datum können dann die Absatzmengen berechnet und in die Attribute geschrieben werden.
